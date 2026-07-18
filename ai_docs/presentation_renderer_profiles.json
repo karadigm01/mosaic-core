@@ -1,0 +1,136 @@
+{
+  "component_id": "presentation_renderer_profiles",
+  "component_name": "Presentation Renderer Profiles",
+  "component_type": "ui_contract",
+  "version": "0.1.2",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-18T14:20:00Z",
+  "dependencies": [
+    "substrate_contracts",
+    "audit_query_api"
+  ],
+  "renderers": [
+    {
+      "renderer_id": "renderer.timeline",
+      "supported_views": [
+        "timeline"
+      ],
+      "data_requirements": [
+        "proof_record.tile_sequence",
+        "presentation_views[*].content",
+        "resource_usage.cpu_percent",
+        "resource_usage.memory_percent",
+        "resource_usage.pressure_state",
+        "ledger_metadata.pressure_signal",
+        "pressure_alerts[*].severity",
+        "pressure_alerts[*].pressure_ratio"
+      ],
+      "ui_contract": {
+        "layout": "chronological",
+        "latency_target_ms": 16,
+        "max_entries": 50,
+        "pressure_indicator": {
+          "status_colors": {
+            "pressure_detected": "#FF6B6B",
+            "within_budget": "#2ECC71"
+          },
+          "ratio_precision": 2
+        },
+        "alert_overlay": {
+          "badge_palette": {
+            "warning": "#FFC145",
+            "severe": "#FF1E56"
+          },
+          "stacking_strategy": "temporal_stagger",
+          "entry_animation_ms": 200
+        }
+      },
+      "access_level": "public"
+    },
+    {
+      "renderer_id": "renderer.causal_graph",
+      "supported_views": [
+        "causal_graph"
+      ],
+      "data_requirements": [
+        "tile_sequence",
+        "constraint_context.invariants",
+        "resource_usage.pressure_state",
+        "pressure_alerts[*].tile_id"
+      ],
+      "ui_contract": {
+        "layout": "graph",
+        "latency_target_ms": 33,
+        "max_nodes": 30,
+        "pressure_overlays": true,
+        "alert_path_highlight": {
+          "edge_glow_color": "#FF8C42",
+          "severity_scale": [
+            {
+              "level": "warning",
+              "stroke_weight": 2
+            },
+            {
+              "level": "severe",
+              "stroke_weight": 4
+            }
+          ]
+        }
+      },
+      "access_level": "internal"
+    },
+    {
+      "renderer_id": "renderer.text_summary",
+      "supported_views": [
+        "text_summary"
+      ],
+      "data_requirements": [
+        "presentation_views[*].content",
+        "user_context.actor_id",
+        "resource_usage.pressure_state",
+        "pressure_alerts[*].severity"
+      ],
+      "ui_contract": {
+        "layout": "markdown",
+        "latency_target_ms": 10,
+        "max_tokens": 512,
+        "pressure_summary": true,
+        "alert_callouts": {
+          "max_entries": 3,
+          "template": "⚠️ {severity}: ratio {ratio}",
+          "include_signal_id": true
+        }
+      },
+      "access_level": "public"
+    },
+    {
+      "renderer_id": "renderer.alert_panel",
+      "supported_views": [
+        "pressure_alerts"
+      ],
+      "data_requirements": [
+        "pressure_alerts[*].severity",
+        "pressure_alerts[*].pressure_ratio",
+        "pressure_alerts[*].tile_id",
+        "pressure_alerts[*].signal_id"
+      ],
+      "ui_contract": {
+        "layout": "stacked_cards",
+        "latency_target_ms": 12,
+        "max_alerts": 5,
+        "card_schema": {
+          "title_field": "tile_id",
+          "subtitle_field": "signal_id",
+          "severity_badge": true,
+          "ratio_precision": 2
+        },
+        "page_transition": "slide_in"
+      },
+      "access_level": "public"
+    }
+  ],
+  "audit_hooks": {
+    "proof_reference": true,
+    "ledger_entry_link": true
+  }
+}

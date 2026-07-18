@@ -1,0 +1,440 @@
+{
+  "component_id": "example_tiles",
+  "component_name": "Reference Reasoning Tile Specifications",
+  "component_type": "reference_bundle",
+  "version": "0.1.0",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-27T00:00:00Z",
+  "dependencies": [
+    "substrate_contracts",
+    "tile_lifecycle_protocol",
+    "audit_ledger_schema"
+  ],
+  "tiles": [
+    {
+      "tile_id": "tile.lang.semantic_router",
+      "tile_name": "Semantic Router Tile",
+      "capabilities": [
+        "language.route",
+        "context.select"
+      ],
+      "inputs": [
+        {
+          "fact_type": "conversation.input",
+          "schema": "constraint_fact"
+        },
+        {
+          "fact_type": "conversation.turn",
+          "schema": "constraint_fact"
+        },
+        {
+          "fact_type": "cognition.sentiment_result",
+          "schema": "constraint_fact"
+        }
+      ],
+      "outputs": [
+        {
+          "fact_type": "conversation.route_decision",
+          "schema": "constraint_fact"
+        }
+      ],
+      "behavior_guarantees": {
+        "determinism_proof_hash": "hash://sha256/placeholder",
+        "accuracy_bounds": {
+          "top_route_precision": 0.92
+        },
+        "failure_modes": [
+          "low_confidence_route"
+        ]
+      },
+      "resource_budget": {
+        "cpu_percent": 12,
+        "memory_mb": 384,
+        "disk_mb": 64,
+        "latency_p95_ms": 18
+      },
+      "presentation_manifest": {
+        "preferred_views": [
+          "text_summary",
+          "causal_graph"
+        ],
+        "data_bindings": {
+          "route_choice": "outputs[0].payload",
+          "confidence": "behavior_guarantees.accuracy_bounds.top_route_precision"
+        },
+        "narrative_template": "Tile {{tile_id}} routed to {{route_choice}} with {{confidence}} confidence.",
+        "sensitivity_class": "public"
+      },
+      "lifecycle_state": "promoted",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ]
+    },
+    {
+      "tile_id": "tile.reasoning.route_dispatch",
+      "tile_name": "Route Dispatch Tile",
+      "capabilities": [
+        "route.dispatch"
+      ],
+      "inputs": [
+        {
+          "fact_type": "conversation.route_decision",
+          "schema": "constraint_fact"
+        }
+      ],
+      "outputs": [
+        {
+          "fact_type": "pressure.alert_batch",
+          "schema": "constraint_fact"
+        }
+      ],
+      "behavior_guarantees": {
+        "determinism_proof_hash": "hash://sha256/placeholder-route-dispatch",
+        "accuracy_bounds": {
+          "signal_alignment": 0.95
+        },
+        "failure_modes": [
+          "route_map_missing",
+          "fanout_overflow"
+        ]
+      },
+      "resource_budget": {
+        "cpu_percent": 8,
+        "memory_mb": 128,
+        "disk_mb": 32,
+        "latency_p95_ms": 10
+      },
+      "presentation_manifest": {
+        "preferred_views": [
+          "pressure_alerts",
+          "timeline"
+        ],
+        "data_bindings": {
+          "alerts": "outputs[0].payload.alerts",
+          "route_id": "inputs[0].payload.route_id"
+        },
+        "narrative_template": "Route dispatch fanned out {{alerts|length}} alerts for {{route_id}}",
+        "sensitivity_class": "internal"
+      },
+      "lifecycle_state": "promoted",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ]
+    },
+    {
+      "tile_id": "tile.memory.vector_commit",
+      "tile_name": "Vector Commit Tile",
+      "capabilities": [
+        "memory.embed",
+        "memory.commit"
+      ],
+      "inputs": [
+        {
+          "fact_type": "observation.event",
+          "schema": "constraint_fact"
+        }
+      ],
+      "outputs": [
+        {
+          "fact_type": "memory.embedding_reference",
+          "schema": "constraint_fact"
+        }
+      ],
+      "behavior_guarantees": {
+        "determinism_proof_hash": "hash://sha256/placeholder2",
+        "accuracy_bounds": {
+          "embedding_recall": 0.88
+        },
+        "failure_modes": [
+          "vector_store_unavailable"
+        ]
+      },
+      "resource_budget": {
+        "cpu_percent": 25,
+        "memory_mb": 1024,
+        "disk_mb": 256,
+        "latency_p95_ms": 40
+      },
+      "presentation_manifest": {
+        "preferred_views": [
+          "timeline",
+          "resource_radar"
+        ],
+        "data_bindings": {
+          "memory_slot": "outputs[0].payload.slot_id",
+          "embedding_norm": "outputs[0].payload.metadata.vector_norm"
+        },
+        "narrative_template": "Committed observation to slot {{memory_slot}} (norm {{embedding_norm}}).",
+        "sensitivity_class": "internal"
+      },
+      "lifecycle_state": "sandboxed",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ]
+    },
+    {
+      "tile_id": "tile.presentation.alert_panel",
+      "tile_name": "Alert Panel Tile",
+      "capabilities": [
+        "presentation.alert_panel",
+        "presentation.pressure_alerts"
+      ],
+      "inputs": [
+        {
+          "fact_type": "pressure.alert_batch",
+          "schema": "pressure_alert"
+        }
+      ],
+      "outputs": [
+        {
+          "fact_type": "presentation.alert_panel",
+          "schema": "constraint_fact"
+        }
+      ],
+      "behavior_guarantees": {
+        "determinism_proof_hash": "hash://sha256/placeholder-alert-panel",
+        "accuracy_bounds": {
+          "alert_capture_ratio": 1.0
+        },
+        "failure_modes": [
+          "no_alerts_available"
+        ]
+      },
+      "resource_budget": {
+        "cpu_percent": 3,
+        "memory_mb": 64,
+        "disk_mb": 16,
+        "latency_p95_ms": 5
+      },
+      "presentation_manifest": {
+        "preferred_views": [
+          "pressure_alerts",
+          "timeline"
+        ],
+        "data_bindings": {
+          "alerts": "outputs[0].payload.alerts"
+        },
+        "narrative_template": "Alert panel summarized {{alerts|length}} pressure events for proof scope.",
+        "sensitivity_class": "public"
+      },
+      "lifecycle_state": "promoted",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ]
+    },
+    {
+      "tile_id": "tile.lang.guided_hallucinator",
+      "tile_name": "Guided Hallucinator Tile",
+      "capabilities": [
+        "conversation.imagination",
+        "conversation.response_proposal",
+        "conversation.hypothesis"
+      ],
+      "inputs": [
+        {
+          "fact_type": "conversation.turn",
+          "schema": "constraint_fact"
+        },
+        {
+          "fact_type": "conversation.context_snapshot",
+          "schema": "constraint_fact"
+        }
+      ],
+      "outputs": [
+        {
+          "fact_type": "conversation.hypothesis",
+          "schema": "constraint_fact"
+        },
+        {
+          "fact_type": "conversation.self_assessment",
+          "schema": "constraint_fact"
+        }
+      ],
+      "behavior_guarantees": {
+        "determinism_proof_hash": "hash://sha256/placeholder-guided-hallucinator",
+        "accuracy_bounds": {
+          "speculation_alignment": 0.75,
+          "self_confidence_floor": 0.6
+        },
+        "failure_modes": [
+          "upstream_context_missing",
+          "model_seed_divergence"
+        ]
+      },
+      "resource_budget": {
+        "cpu_percent": 30,
+        "memory_mb": 2048,
+        "disk_mb": 512,
+        "latency_p95_ms": 120
+      },
+      "runtime_contract": {
+        "resource_constraints": {
+          "max_concurrent_requests": 4,
+          "max_prompt_tokens": 256,
+          "max_completion_tokens": 480,
+          "request_timeout_ms": 30000
+        },
+        "internal_state": {
+          "counters": [
+            {
+              "name": "in_flight_counter",
+              "type": "int",
+              "description": "Tracks deterministic number of active TinyLLaMA calls"
+            }
+          ],
+          "queues": [
+            {
+              "name": "request_queue",
+              "capacity": 4,
+              "policy": "bounded_fifo",
+              "description": "Local backpressure queue when remote slots are saturated"
+            }
+          ]
+        },
+        "error_classification": {
+          "context_size_exceeded": "terminal_refusal",
+          "timeout": {
+            "action": "retry_once_if_slot_available",
+            "retry_delay_ms": 0
+          },
+          "local_queue_full": "structured_refusal"
+        },
+        "telemetry_signals": [
+          "slot_contention_events",
+          "timeout_expirations",
+          "context_overflow_refusals",
+          "queue_wait_duration_ms"
+        ],
+        "proof_chain_outputs": [
+          "request_uuid",
+          "prompt_tokens_actual",
+          "completion_tokens_actual",
+          "outcome",
+          "dependency_evidence_refs"
+        ],
+        "dependency_evidence": [
+          {
+            "artifact": "models/server.logs/server.log1.md",
+            "finding": "llama.cpp returns HTTP 500 with 'Context size has been exceeded' when four 512-token completions run concurrently"
+          },
+          {
+            "artifact": "tmp/slot_full_with_slots.json",
+            "finding": "Remote /slots endpoint lags and fails to report all busy workers under load"
+          },
+          {
+            "artifact": "tmp/slot_full_with_slots_timeseries.json",
+            "finding": "Repeated polling shows blind queuing plus probe timeouts at 10s when slots saturated"
+          }
+        ]
+      },
+      "presentation_manifest": {
+        "preferred_views": [
+          "imagination_trace",
+          "confidence_meter"
+        ],
+        "data_bindings": {
+          "hypothesis": "outputs[0].payload",
+          "confidence": "outputs[1].payload.confidence",
+          "governed_seed": "behavior_guarantees.determinism_proof_hash"
+        },
+        "narrative_template": "Tile {{tile_id}} proposed hypothesis '{{hypothesis.summary}}' (confidence {{confidence}})",
+        "sensitivity_class": "internal"
+      },
+      "lifecycle_state": "proposed",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ]
+    }
+  ],
+  "capability_descriptors": [
+    {
+      "capability_id": "cap.edge.ultrabook",
+      "resource_class": "edge_device",
+      "hardware_traits": {
+        "cpu_cores": 4,
+        "accel_types": [],
+        "memory_mb": 15360,
+        "storage_mb": 488000
+      },
+      "latency_profile_ms": {
+        "cold_start": 80,
+        "steady_state": 15
+      },
+      "privacy_guarantees": {
+        "data_residency": "local_device",
+        "encryption": "disk_and_memory",
+        "attestations": [
+          "secure_boot"
+        ]
+      },
+      "current_utilization_percent": {
+        "cpu": 10,
+        "memory": 45,
+        "io": 5,
+        "network": 2
+      }
+    }
+  ],
+  "proof_record_templates": [
+    {
+      "name": "conversation_routing_example",
+      "goal": {
+        "type": "conversation.route_request",
+        "criteria": "select_best_tool_chain"
+      },
+      "constraint_context": {
+        "invariants": [
+          "I1",
+          "I2",
+          "I3",
+          "I4"
+        ],
+        "policy_version": "1.0.0"
+      },
+      "tile_sequence": [
+        {
+          "tile_id": "tile.lang.semantic_router",
+          "inputs": [
+            "fact://conversation.turn/123"
+          ],
+          "outputs": [
+            "fact://conversation.route_decision/456"
+          ]
+        }
+      ],
+      "capability_bindings": [
+        {
+          "tile_id": "tile.lang.semantic_router",
+          "capability_id": "cap.edge.ultrabook"
+        }
+      ],
+      "resource_usage": {
+        "cpu_percent": 18,
+        "memory_percent": 12,
+        "io_percent": 1,
+        "network_percent": 0
+      },
+      "presentation_views": [
+        {
+          "view_type": "text_summary",
+          "content": "Tile tile.lang.semantic_router routed request to tool-X"
+        }
+      ]
+    }
+  ]
+}

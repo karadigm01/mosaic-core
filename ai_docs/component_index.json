@@ -1,0 +1,557 @@
+{
+  "components": [
+    {
+      "component_id": "substrate_contracts",
+      "component_name": "Constraint Substrate Contract Schemas",
+      "component_type": "schema_bundle",
+      "file_path": "ai_docs/substrate_contracts.json",
+      "dependencies": [],
+      "dependents": [
+        "audit_ledger_schema",
+        "tile_lifecycle_protocol"
+      ],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-17T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/substrate_contracts.json",
+      "related_techniques": [
+        "tech-0001"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 50,
+        "resource_ceiling_percent": 30
+      },
+      "complexity_score": 1
+    },
+    {
+      "component_id": "audit_ledger_schema",
+      "component_name": "Inference Proof Audit Ledger Schema",
+      "component_type": "schema_bundle",
+      "file_path": "ai_docs/audit_ledger_schema.json",
+      "dependencies": [
+        "substrate_contracts"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-18T13:45:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/audit_ledger_schema.json",
+      "related_techniques": [
+        "tech-0002"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 10,
+        "resource_ceiling_percent": 5
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "tile_lifecycle_protocol",
+      "component_name": "Reasoning Tile Lifecycle Protocol",
+      "component_type": "governance_spec",
+      "file_path": "ai_docs/tile_lifecycle_protocol.json",
+      "dependencies": [
+        "substrate_contracts",
+        "audit_ledger_schema"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-17T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/tile_lifecycle_protocol.json",
+      "related_techniques": [
+        "tech-0001",
+        "tech-0002"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 50,
+        "resource_ceiling_percent": 30
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "example_tiles",
+      "component_name": "Reference Reasoning Tile Specifications",
+      "component_type": "reference_bundle",
+      "file_path": "ai_docs/example_tiles.json",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "audit_ledger_schema"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-17T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/example_tiles.json",
+      "related_techniques": [
+        "tech-0001",
+        "tech-0002"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 40,
+        "resource_ceiling_percent": 30
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "sandbox_test_suite",
+      "component_name": "Automated Sandbox Validation Suite",
+      "component_type": "test_spec",
+      "file_path": "ai_docs/sandbox_test_suite.json",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "example_tiles"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-17T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/sandbox_test_suite.json",
+      "related_techniques": [
+        "tech-0001",
+        "tech-0002"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 100,
+        "resource_ceiling_percent": 15
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "sandbox_automation_protocol",
+      "component_name": "Sandbox Execution Automation Protocol",
+      "component_type": "automation_spec",
+      "file_path": "ai_docs/sandbox_automation_protocol.json",
+      "dependencies": [
+        "sandbox_test_suite",
+        "tile_lifecycle_protocol",
+        "audit_ledger_schema"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-17T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/sandbox_automation_protocol.json",
+      "related_techniques": [
+        "tech-0003"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 5000,
+        "resource_ceiling_percent": 20
+      },
+      "complexity_score": 3
+    },
+    {
+      "component_id": "audit_query_api",
+      "component_name": "Audit Ledger Query API Contract",
+      "component_type": "api_spec",
+      "file_path": "ai_docs/audit_query_api.json",
+      "dependencies": [
+        "audit_ledger_schema",
+        "substrate_contracts"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-17T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/audit_query_api.json",
+      "related_techniques": [
+        "tech-0002"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 80,
+        "resource_ceiling_percent": 10
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "presentation_renderer_profiles",
+      "component_name": "Presentation Renderer Profiles",
+      "component_type": "ui_contract",
+      "file_path": "ai_docs/presentation_renderer_profiles.json",
+      "dependencies": [
+        "substrate_contracts",
+        "audit_query_api"
+      ],
+      "dependents": [
+        "alert_panel_tile"
+      ],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-19T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/presentation_renderer_profiles.json",
+      "related_techniques": [
+        "tech-0002",
+        "tech-0005"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 33,
+        "resource_ceiling_percent": 10
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "sample_tile_promotion",
+      "component_name": "Sample Tile Promotion Runbook",
+      "component_type": "process_record",
+      "file_path": "ai_docs/sample_tile_promotion.json",
+      "dependencies": [
+        "tile_lifecycle_protocol",
+        "sandbox_automation_protocol",
+        "sandbox_test_suite",
+        "audit_query_api",
+        "presentation_renderer_profiles"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-17T00:00:00Z",
+      "last_modified_timestamp": "2026-01-17T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "ai_docs/sample_tile_promotion.json",
+      "related_techniques": [
+        "tech-0001",
+        "tech-0003",
+        "tech-0004",
+        "tech-0006"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 0,
+        "resource_ceiling_percent": 0
+      },
+      "complexity_score": 1
+    },
+    {
+      "component_id": "resolver_skeleton",
+      "component_name": "Goal + Resolver Skeleton",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/resolver.py",
+      "dependencies": [
+        "substrate_contracts",
+        "example_tiles",
+        "tile_lifecycle_protocol"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-18T00:00:00Z",
+      "last_modified_timestamp": "2026-01-20T12:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 93.68,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/resolver.py",
+      "related_techniques": [
+        "tech-0008",
+        "tech-0009",
+        "tech-0010"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 50,
+        "resource_ceiling_percent": 30
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "semantic_router_tile",
+      "component_name": "Semantic Router Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/semantic_router.py",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "example_tiles"
+      ],
+      "dependents": [
+        "resolver_skeleton"
+      ],
+      "creation_timestamp": "2026-01-18T00:00:00Z",
+      "last_modified_timestamp": "2026-01-18T12:30:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 97.56,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/semantic_router.py",
+      "related_techniques": [
+        "tech-0009",
+        "tech-0010"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 30,
+        "resource_ceiling_percent": 20
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "route_dispatch_tile",
+      "component_name": "Route Dispatch Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/route_dispatch_tile.py",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "example_tiles"
+      ],
+      "dependents": [
+        "resolver_skeleton",
+        "pressure_summary_tile",
+        "alert_panel_tile"
+      ],
+      "creation_timestamp": "2026-01-21T00:00:00Z",
+      "last_modified_timestamp": "2026-01-21T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 97.14,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/route_dispatch_tile.py",
+      "related_techniques": [
+        "tech-0009",
+        "tech-0010"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 10,
+        "resource_ceiling_percent": 15
+      },
+      "complexity_score": 1
+    },
+    {
+      "component_id": "alert_panel_tile",
+      "component_name": "Presentation Alert Panel Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/alert_panel_tile.py",
+      "dependencies": [
+        "presentation_renderer_profiles",
+        "audit_ledger_schema"
+      ],
+      "dependents": [
+        "resolver_skeleton"
+      ],
+      "creation_timestamp": "2026-01-19T00:00:00Z",
+      "last_modified_timestamp": "2026-01-19T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/alert_panel_tile.py",
+      "related_techniques": [
+        "tech-0005"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 5,
+        "resource_ceiling_percent": 5
+      },
+      "complexity_score": 1
+    },
+    {
+      "component_id": "pressure_summary_tile",
+      "component_name": "Pressure Summary Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/pressure_summary_tile.py",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "example_tiles"
+      ],
+      "dependents": [
+        "resolver_skeleton"
+      ],
+      "creation_timestamp": "2026-01-20T00:00:00Z",
+      "last_modified_timestamp": "2026-01-20T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/pressure_summary_tile.py",
+      "related_techniques": [
+        "tech-0009",
+        "tech-0011"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 10,
+        "resource_ceiling_percent": 10
+      },
+      "complexity_score": 1
+    },
+    {
+      "component_id": "sentiment_tile",
+      "component_name": "Sentiment Classification Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/sentiment_tile.py",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "example_tiles"
+      ],
+      "dependents": [
+        "resolver_skeleton"
+      ],
+      "creation_timestamp": "2026-01-20T00:00:00Z",
+      "last_modified_timestamp": "2026-01-20T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 98.04,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/sentiment_tile.py",
+      "related_techniques": [
+        "tech-0009",
+        "tech-0010"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 20,
+        "resource_ceiling_percent": 15
+      },
+      "complexity_score": 2
+    },
+    {
+      "component_id": "proof_evaluator_tile",
+      "component_name": "Proof Evaluator Meta Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/proof_evaluator_tile.py",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "audit_ledger_schema"
+      ],
+      "dependents": [
+        "resolver_skeleton"
+      ],
+      "creation_timestamp": "2026-01-20T00:00:00Z",
+      "last_modified_timestamp": "2026-01-20T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/proof_evaluator_tile.py",
+      "related_techniques": [
+        "tech-0011"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 5,
+        "resource_ceiling_percent": 5
+      },
+      "complexity_score": 1
+    },
+    {
+      "component_id": "pressure_historian_tile",
+      "component_name": "Pressure Historian Meta Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/pressure_historian_tile.py",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "audit_ledger_schema"
+      ],
+      "dependents": [
+        "resolver_skeleton"
+      ],
+      "creation_timestamp": "2026-01-20T00:00:00Z",
+      "last_modified_timestamp": "2026-01-20T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 97.92,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/pressure_historian_tile.py",
+      "related_techniques": [
+        "tech-0011"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 5,
+        "resource_ceiling_percent": 5
+      },
+      "complexity_score": 1
+    },
+    {
+      "component_id": "guided_hallucinator_tile",
+      "component_name": "Guided Hallucinator Tile",
+      "component_type": "runtime_module",
+      "file_path": "src/runtime/guided_hallucinator_tile.py",
+      "dependencies": [
+        "substrate_contracts",
+        "tile_lifecycle_protocol",
+        "example_tiles"
+      ],
+      "dependents": [
+        "resolver_skeleton"
+      ],
+      "creation_timestamp": "2026-01-24T00:00:00Z",
+      "last_modified_timestamp": "2026-01-24T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "src/runtime/guided_hallucinator_tile.py",
+      "related_techniques": [
+        "tech-0009",
+        "tech-0010"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 120,
+        "resource_ceiling_percent": 30
+      },
+      "complexity_score": 3
+    },
+    {
+      "component_id": "system_status_report",
+      "component_name": "Comprehensive System Status",
+      "component_type": "governance_artifact",
+      "file_path": "SYSTEM_STATUS.md",
+      "dependencies": [
+        "component_index",
+        "knowledge_base"
+      ],
+      "dependents": [],
+      "creation_timestamp": "2026-01-20T00:00:00Z",
+      "last_modified_timestamp": "2026-01-27T00:00:00Z",
+      "health_status": "healthy",
+      "test_coverage_percentage": 100.0,
+      "compliance_status": "I1_I2_I3_I4_compliant",
+      "documentation_path": "SYSTEM_STATUS.md",
+      "related_techniques": [
+        "tech-0001",
+        "tech-0002"
+      ],
+      "known_issues": [],
+      "performance_metrics": {
+        "latency_target_ms": 0,
+        "resource_ceiling_percent": 0
+      },
+      "complexity_score": 1
+    }
+  ],
+  "metadata": {
+    "last_updated": "2026-02-21T00:00:00Z",
+    "total_components": 19,
+    "schema_version": "2.0.0"
+  },
+  "health_status": {
+    "total_healthy": 19,
+    "total_degraded": 0,
+    "total_failing": 0
+  },
+  "_schema_reference": "See core_reference.json > documentation_schemas > component_index_schema for component object structure"
+}

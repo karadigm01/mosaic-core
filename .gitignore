@@ -1,0 +1,15 @@
+# Large model artifacts (exceed GitHub file size limits)
+models/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+*.tsbuildinfo
+
+# Temp
+tmp/

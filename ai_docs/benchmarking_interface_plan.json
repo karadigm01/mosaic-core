@@ -1,0 +1,185 @@
+{
+  "document_id": "benchmarking_interface_plan",
+  "title": "Interactive Benchmarking Interface Plan",
+  "author": "GitHub Copilot (GPT-5.1-Codex)",
+  "created_timestamp": "2026-01-24T00:00:00Z",
+  "purpose": "Define requirements for an interactive benchmarking interface that extends beyond existing automation logs.",
+  "problem_statement": "Current automation outputs (pytest logs, coverage JSON, CLI demos) are comprehensive but fragmented. End users lack a single surface to run curated scenarios, compare telemetry, and export governance evidence without parsing multiple files.",
+  "user_personas": [
+    {
+      "name": "Systems Engineer",
+      "needs": [
+        "Run deterministic resolver scenarios on demand",
+        "Capture TinyLLaMA availability and proof artifacts in one bundle"
+      ]
+    },
+    {
+      "name": "Governance Reviewer",
+      "needs": [
+        "Verify automation evidence without running code",
+        "Diff coverage, pressure telemetry, and hypotheses across runs"
+      ]
+    }
+  ],
+  "benchmarking_objectives": [
+    "Expose curated scenario catalog (sentiment chain, hallucinator, pressure-heavy routes)",
+    "Bundle proofs, ledger snippets, TinyLLaMA health, and CLI output per run",
+    "Offer playlist execution that stitches pytest targets with CLI demos",
+    "Provide regression diffing for presentation views, coverage stats, and automation metrics"
+  ],
+  "data_sources": [
+    "runtime.automation_runner evidence payloads",
+    "logs/hallucinator-demo-*.json",
+    "knowledge_base/kb_index.json latest_tinyllama_health_snapshot",
+    "ai_docs/component_index.json coverage metadata",
+    "SYSTEM_STATUS.md / SYSTEM_SUMMARY.md derived insights"
+  ],
+  "compliance_considerations": {
+    "I1_function_determinism": "All benchmark scenarios must reuse deterministic inputs; timestamps captured only in governance metadata.",
+    "I2_memory_isolation": "Interface may only read proofs/logs; no long-lived allocations beyond existing caches.",
+    "I3_workspace_coherence": "Artifacts must remain JSON-first (no ad-hoc binaries) and live under ai_docs/ or logs/ per governance.",
+    "I4_documentation_purity": "Human-readable benchmark summaries derive from JSON outputs; no dual-purpose files."
+  },
+  "proposed_features": [
+    {
+      "id": "bench-scenario-catalog",
+      "description": "Declarative JSON describing each scenario (goal, tiles, expected telemetry) used by CLI/UI triggers.",
+      "dependencies": ["runtime.resolver", "runtime.automation_runner"]
+    },
+    {
+      "id": "bench-telemetry-dashboard",
+      "description": "Aggregates TinyLLaMA health snapshots, coverage deltas, proof presentation views, and ledger references.",
+      "dependencies": ["knowledge_base/kb_index.json", "logs/coverage-*.json"]
+    },
+    {
+      "id": "bench-playlist-runner",
+      "description": "Executes a playlist (pytest targets + CLI demos) and emits a single evidence bundle with diffs against previous playlists, reusing auto-0007 logging to capture each scenario plus an aggregate playlist ledger entry.",
+      "dependencies": ["runtime.automation_runner", "logs/tests-*.log"]
+    }
+  ],
+  "implementation_phases": [
+    {
+      "phase": "Phase 1",
+      "focus": "Scenario catalog + documentation",
+      "deliverables": ["ai_docs/benchmarking_scenarios.json", "Resolver CLI hooks"],
+      "success_metrics": ["Scenarios runnable via CLI", "Proof + telemetry bundle produced"]
+    },
+    {
+      "phase": "Phase 2",
+      "focus": "Playlist orchestration and evidence export",
+      "deliverables": ["automation runner playlist flag", "bundle exporter"],
+      "success_metrics": ["Playlist run recorded in knowledge base", "Evidence bundle consumable by auditors"]
+    },
+    {
+      "phase": "Phase 3",
+      "focus": "Interactive dashboard / reporting",
+      "deliverables": ["Derived markdown summary", "Diff view for coverage + presentation"],
+      "success_metrics": ["Benchmark diffs visible without manual log inspection"]
+    }
+  ],
+  "open_questions": [
+    "Should the interface remain CLI-only or also expose a small web UI?",
+    "Where should benchmark playlists be stored (ai_docs vs knowledge_base)?",
+    "Do we need additional automation pattern IDs (e.g., auto-0007) to track benchmark runs?"
+  ],
+  "phase_execution_status": {
+    "phase_1": {
+      "status": "complete",
+      "start_timestamp": "2026-01-24T00:00:00Z",
+      "completion_timestamp": "2026-01-25T03:28:20Z",
+      "scope_alignment": "Phase 1 covers the scenario catalog stored at ai_docs/benchmarking_scenarios.json and the CLI hooks needed to execute each scenario deterministically.",
+      "acceptance_criteria": [
+        "Scenario catalog JSON lists at least three curated resolver flows (sentiment chain, hallucinator imagination, pressure-heavy path) with required inputs and telemetry expectations.",
+        "A CLI entry point (either main module or automation runner flag) can invoke a cataloged scenario and produce a proof + TinyLLaMA health + CLI demo evidence bundle.",
+        "Each scenario run records evidence in the knowledge base (automation_runs entry or dedicated benchmark ledger) so auditors can replay results.",
+        "Documentation (SYSTEM_STATUS / SYSTEM_SUMMARY) references the catalog and explains how to run Phase 1 benchmarks."
+      ],
+      "knowledge_base_runs": [
+        "auto-0007-run-scenario.sentiment_chain-20260125T032636Z",
+        "auto-0007-run-scenario.hallucinator_imagination-20260125T032710Z",
+        "auto-0007-run-scenario.pressure_alert-20260125T032820Z"
+      ]
+    },
+    "phase_2": {
+      "status": "complete",
+      "start_timestamp": "2026-01-25T03:35:00Z",
+      "completion_timestamp": "2026-01-25T03:44:18Z",
+      "scope_alignment": "Phase 2 delivered playlist orchestration so multiple catalog scenarios plus optional pytest targets run under a single command, recording both per-scenario auto-0007 entries and aggregate playlist metadata with diff scaffolding.",
+      "playlist_design": {
+        "definition_schema": "ai_docs/benchmarking_playlists.json now lists scenario sequences, pytest_targets, evidence tags, and diff_targets for each playlist.",
+        "execution_contract": [
+          "runtime.automation_runner accepts --benchmark-playlist <id> and enforces deterministic scenario order",
+          "Each scenario invocation reuses existing catalog definitions; no duplicate configuration",
+          "Auto-0007 ledger writer records an aggregate playlist entry referencing the constituent runs"
+        ],
+        "evidence_contract": {
+          "bundle_format": "logs/benchmarks/playlist.<playlist_id>-<timestamp>.json",
+          "contents": [
+            "scenario_results[*].artifact_path",
+            "scenario_results[*].tinyllama_health",
+            "playlist_diffs.aggregate_delta",
+            "playlist_diffs.scenario_regressions"
+          ]
+        }
+      },
+      "success_metrics": [
+        "Playlist execution produces individual auto-0007 scenario entries plus an aggregate playlist ledger record",
+        "Evidence bundle merges pytest + CLI artifacts with diff metadata so auditors open one file",
+        "kb_index automation counters increment once per playlist run with total scenario count included"
+      ],
+      "knowledge_base_runs": [
+        "auto-0007-run-scenario.sentiment_chain-20260125T034358Z",
+        "auto-0007-run-scenario.hallucinator_imagination-20260125T034418Z",
+        "auto-0007-run-scenario.pressure_alert-20260125T034418Z",
+        "auto-0007-run-playlist.playlist.phase2_seed-20260125T034418Z"
+      ]
+    },
+    "phase_3": {
+      "status": "in_progress",
+      "start_timestamp": "2026-01-25T04:20:00Z",
+      "scope_alignment": "Phase 3 wires playlist diffs into governance surfaces by generating a JSON dashboard plus derived markdown callouts so reviewers can read regression data without opening raw benchmark artifacts.",
+      "deliverables": {
+        "dashboard_summary_path": "ai_docs/benchmarking_dashboard.json",
+        "runner_hooks": "runtime.benchmarking_runner now emits dashboard summaries after each playlist run",
+        "doc_integration": "SYSTEM_STATUS.md + SYSTEM_SUMMARY.md to reference dashboard deltas",
+        "cli_renderer": "src/runtime/benchmark_dashboard_cli.py renders playlist/diff summaries",
+        "terminal_interface": "runtime.benchmark_dashboard_tui.py provides a curses dashboard with API-backed mode, scenario filters, and artifact viewers"
+      },
+      "success_metrics": [
+        "Dashboard JSON lists every playlist scenario with coverage status and presentation view counts",
+        "Governance docs reference the dashboard data rather than hand-written summaries",
+        "Diff summaries highlight scenario regressions by ID with aggregate metric deltas"
+      ]
+    }
+  },
+  "phase_2_playlist_design": {
+    "playlist_schema_fields": [
+      "playlist_id (slug)",
+      "scenario_sequence (ordered array of scenario_ids)",
+      "pytest_targets (optional array for supplemental suites)",
+      "evidence_tags (labels for governance exports)",
+      "success_criteria (per-playlist assertions such as expected exit codes or telemetry ranges)"
+    ],
+    "automation_runner_requirements": [
+      "New --playlist flag resolved against ai_docs/benchmarking_playlists.json",
+      "Deterministic fail-fast behavior: abort playlist if any scenario exits non-zero and record failure metadata",
+      "Aggregate TinyLLaMA telemetry (min/max latency, availability) across the playlist"
+    ],
+    "auto_0007_extensions": {
+      "aggregate_entry_id_format": "auto-0007-run-playlist.<playlist_id>-<timestamp>",
+      "fields": [
+        "playlist_id",
+        "scenario_ids",
+        "total_duration_seconds",
+        "pytest_targets",
+        "tinyllama_latency_min_max",
+        "coverage_diff_reference"
+      ]
+    }
+  },
+  "next_actions": [
+    "Automate SYSTEM_STATUS.md / SYSTEM_SUMMARY.md regeneration directly from benchmark_dashboard_cli output",
+    "Persist historical dashboard snapshots so trend diffs exist across playlist runs",
+    "Map hallucinator telemetry requirement aliases to actual proof fields so coverage stops flagging false negatives"
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "command_result": {
+    "command": "/home/j/Desktop/base.26/.venv/bin/python -m main --demo imagination --prompt Imagine a hypothesis about glass cities.",
+    "return_code": 0,
+    "stderr": "",
+    "stdout": "{\n  \"capability_bindings\": [],\n  \"chain_quality\": {\n    \"metrics\": {\n      \"alert_count\": 0.0,\n      \"hop_count\": 0.0,\n      \"pressure_ratio\": 0.0,\n      \"proof_id\": \"proof::demo.hallucinator::resolver\",\n      \"status\": \"rejected\",\n      \"ttl_seconds\": 900\n    },\n    \"penalties\": {\n      \"status_penalty\": 0.2\n    },\n    \"proof_id\": \"proof::demo.hallucinator::resolver\",\n    \"score\": 0.8,\n    \"tier\": \"high\"\n  },\n  \"presentation_views\": [\n    {\n      \"audit_hash\": \"hash://sha256/ca1419d24da9c4dc3985d48546b83f4e166d2c21d279998fd1dcf38d3f2cc92a\",\n      \"fact_id\": \"meta.chain_quality::proof::demo.hallucinator::resolver\",\n      \"proof_id\": \"proof::demo.hallucinator::resolver\",\n      \"score\": 0.8,\n      \"tier\": \"high\",\n      \"type\": \"chain_quality\"\n    }\n  ],\n  \"pressure_state\": null,\n  \"proof_id\": \"proof::demo.hallucinator::resolver\",\n  \"resource_usage\": {\n    \"chain_quality\": {\n      \"metrics\": {\n        \"alert_count\": 0.0,\n        \"hop_count\": 0.0,\n        \"pressure_ratio\": 0.0,\n        \"proof_id\": \"proof::demo.hallucinator::resolver\",\n        \"status\": \"rejected\",\n        \"ttl_seconds\": 900\n      },\n      \"penalties\": {\n        \"status_penalty\": 0.2\n      },\n      \"proof_id\": \"proof::demo.hallucinator::resolver\",\n      \"score\": 0.8,\n      \"tier\": \"high\"\n    }\n  },\n  \"result_summary\": {\n    \"error_code\": \"resolver_error\",\n    \"reason\": \"timed out\",\n    \"status\": \"rejected\"\n  },\n  \"tile_sequence\": []\n}",
+    "stdout_json": {
+      "capability_bindings": [],
+      "chain_quality": {
+        "metrics": {
+          "alert_count": 0.0,
+          "hop_count": 0.0,
+          "pressure_ratio": 0.0,
+          "proof_id": "proof::demo.hallucinator::resolver",
+          "status": "rejected",
+          "ttl_seconds": 900
+        },
+        "penalties": {
+          "status_penalty": 0.2
+        },
+        "proof_id": "proof::demo.hallucinator::resolver",
+        "score": 0.8,
+        "tier": "high"
+      },
+      "presentation_views": [
+        {
+          "audit_hash": "hash://sha256/ca1419d24da9c4dc3985d48546b83f4e166d2c21d279998fd1dcf38d3f2cc92a",
+          "fact_id": "meta.chain_quality::proof::demo.hallucinator::resolver",
+          "proof_id": "proof::demo.hallucinator::resolver",
+          "score": 0.8,
+          "tier": "high",
+          "type": "chain_quality"
+        }
+      ],
+      "pressure_state": null,
+      "proof_id": "proof::demo.hallucinator::resolver",
+      "resource_usage": {
+        "chain_quality": {
+          "metrics": {
+            "alert_count": 0.0,
+            "hop_count": 0.0,
+            "pressure_ratio": 0.0,
+            "proof_id": "proof::demo.hallucinator::resolver",
+            "status": "rejected",
+            "ttl_seconds": 900
+          },
+          "penalties": {
+            "status_penalty": 0.2
+          },
+          "proof_id": "proof::demo.hallucinator::resolver",
+          "score": 0.8,
+          "tier": "high"
+        }
+      },
+      "result_summary": {
+        "error_code": "resolver_error",
+        "reason": "timed out",
+        "status": "rejected"
+      },
+      "tile_sequence": []
+    }
+  },
+  "health_snapshot": {
+    "failure_reason": null,
+    "is_available": true,
+    "latency_ms": 41,
+    "probed_at": 1769322438.6746247,
+    "status_code": 200
+  },
+  "scenario": {
+    "demo": {
+      "arguments": [
+        "--demo",
+        "imagination",
+        "--prompt",
+        "Imagine a hypothesis about glass cities."
+      ],
+      "entry_point": "main"
+    },
+    "description": "Routes a conversation turn to the guided hallucinator to capture hypotheses and TinyLLaMA health telemetry.",
+    "expected_outputs": {
+      "goal": "conversation.hypothesis",
+      "telemetry": [
+        "hallucinator_snapshot",
+        "tinyllama_health_snapshot"
+      ],
+      "tiles": [
+        "tile.lang.semantic_router",
+        "tile.lang.guided_hallucinator"
+      ]
+    },
+    "id": "scenario.hallucinator_imagination",
+    "name": "TinyLLaMA Imagination"
+  },
+  "scenario_id": "scenario.hallucinator_imagination",
+  "timestamp": "2026-01-25T06:27:48Z"
+}

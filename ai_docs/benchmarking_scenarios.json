@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "generated": "2026-01-24T00:00:00Z",
+  "scenarios": [
+    {
+      "id": "scenario.sentiment_chain",
+      "name": "Sentiment Support Chain",
+      "description": "Runs user text through Sentiment -> Semantic Router -> Route Dispatch to verify cognition coverage.",
+      "demo": {
+        "entry_point": "main",
+        "arguments": ["--demo", "sentiment"],
+        "inputs": {
+          "user_text": "I hate waiting for support"
+        }
+      },
+      "expected_outputs": {
+        "goal": "pressure.summary",
+        "tiles": [
+          "tile.lang.sentiment",
+          "tile.lang.semantic_router",
+          "tile.reasoning.route_dispatch",
+          "tile.presentation.pressure_summary"
+        ]
+      },
+      "telemetry_requirements": [
+        "proof.result_summary",
+        "proof.resource_usage.pressure_state",
+        "presentation_views"
+      ]
+    },
+    {
+      "id": "scenario.hallucinator_imagination",
+      "name": "TinyLLaMA Imagination",
+      "description": "Routes a conversation turn to the guided hallucinator to capture hypotheses and TinyLLaMA health telemetry.",
+      "demo": {
+        "entry_point": "main",
+        "arguments": ["--demo", "imagination", "--prompt", "Imagine a hypothesis about glass cities."]
+      },
+      "expected_outputs": {
+        "goal": "conversation.hypothesis",
+        "tiles": [
+          "tile.lang.semantic_router",
+          "tile.lang.guided_hallucinator"
+        ],
+        "telemetry": [
+          "hallucinator_snapshot",
+          "tinyllama_health_snapshot"
+        ]
+      }
+    },
+    {
+      "id": "scenario.pressure_alert",
+      "name": "Pressure Alert Escalation",
+      "description": "Uses constrained CPU budgets to trigger resolver pressure telemetry and ensure alert panels are emitted.",
+      "demo": {
+        "entry_point": "pytest",
+        "arguments": [
+          "tests/test_resolver_multi_hop.py::test_resolver_emits_alert_panel_view_on_pressure"
+        ]
+      },
+      "expected_outputs": {
+        "goal": "route.dispatch",
+        "tiles": [
+          "tile.lang.semantic_router",
+          "tile.reasoning.route_dispatch"
+        ],
+        "telemetry": [
+          "pressure_alert",
+          "pressure_history",
+          "ledger_metadata.pressure_signal"
+        ]
+      }
+    }
+  ]
+}

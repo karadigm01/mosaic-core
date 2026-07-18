@@ -1,0 +1,47 @@
+{
+  "command_result": {
+    "command": "/home/j/Desktop/base.26/.venv/bin/python -m main --demo sentiment",
+    "return_code": 1,
+    "stderr": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 189, in _run_module_as_main\n  File \"<frozen runpy>\", line 159, in _get_module_details\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/j/Desktop/base.26/src/main.py\", line 115\n    from __future__ import annotations\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: from __future__ imports must occur at the beginning of the file",
+    "stdout": "",
+    "stdout_json": null
+  },
+  "health_snapshot": {
+    "failure_reason": null,
+    "is_available": true,
+    "latency_ms": 46,
+    "probed_at": 1769310394.0304208,
+    "status_code": 200
+  },
+  "scenario": {
+    "demo": {
+      "arguments": [
+        "--demo",
+        "sentiment"
+      ],
+      "entry_point": "main",
+      "inputs": {
+        "user_text": "I hate waiting for support"
+      }
+    },
+    "description": "Runs user text through Sentiment -> Semantic Router -> Route Dispatch to verify cognition coverage.",
+    "expected_outputs": {
+      "goal": "pressure.summary",
+      "tiles": [
+        "tile.lang.sentiment",
+        "tile.lang.semantic_router",
+        "tile.reasoning.route_dispatch",
+        "tile.presentation.pressure_summary"
+      ]
+    },
+    "id": "scenario.sentiment_chain",
+    "name": "Sentiment Support Chain",
+    "telemetry_requirements": [
+      "proof.result_summary",
+      "proof.resource_usage.pressure_state",
+      "presentation_views"
+    ]
+  },
+  "scenario_id": "scenario.sentiment_chain",
+  "timestamp": "2026-01-25T03:06:34Z"
+}

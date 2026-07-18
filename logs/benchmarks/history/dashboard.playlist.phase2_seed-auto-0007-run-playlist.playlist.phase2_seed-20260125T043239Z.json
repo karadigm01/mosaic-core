@@ -1,0 +1,110 @@
+{
+  "coverage_snapshot": {
+    "failing_scenarios": [],
+    "pytest_targets": [],
+    "scenario_count": 3,
+    "tinyllama_latency_span_ms": 60
+  },
+  "last_updated": "2026-01-25T04:32:39Z",
+  "latest_run": {
+    "aggregate_metrics": {
+      "failures": 0,
+      "scenario_count": 3,
+      "tinyllama_latency_max_ms": 60,
+      "tinyllama_latency_min_ms": 0,
+      "total_duration_seconds": 32
+    },
+    "artifact_path": "logs/benchmarks/playlist.playlist.phase2_seed-20260125T043239Z.json",
+    "diff_summary": {
+      "aggregate_delta": {
+        "failures": 0,
+        "tinyllama_latency_max_ms": 60,
+        "tinyllama_latency_min_ms": 0,
+        "total_duration_seconds": 12
+      },
+      "baseline_artifact": "logs/benchmarks/playlist.playlist.phase2_seed-20260125T034418Z.json",
+      "scenario_regressions": [
+        {
+          "current_return_code": 0,
+          "latency_delta_ms": 60,
+          "previous_return_code": 0,
+          "scenario_id": "scenario.sentiment_chain"
+        },
+        {
+          "current_return_code": 0,
+          "latency_delta_ms": 9,
+          "previous_return_code": 0,
+          "scenario_id": "scenario.pressure_alert"
+        }
+      ]
+    },
+    "playlist_id": "playlist.phase2_seed",
+    "run_id": "auto-0007-run-playlist.playlist.phase2_seed-20260125T043239Z"
+  },
+  "scenario_highlights": [
+    {
+      "artifact_path": "logs/benchmarks/scenario.sentiment_chain-20260125T043207Z.json",
+      "coverage": {
+        "requirements": {
+          "presentation_views": true,
+          "proof.resource_usage.pressure_state": false,
+          "proof.result_summary": false
+        },
+        "status": "partial"
+      },
+      "presentation": {
+        "has_hypothesis": false,
+        "pressure_state": {
+          "ratio": 0.6,
+          "status": "within_budget"
+        },
+        "view_counts": {
+          "chain_quality": 1
+        }
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.sentiment_chain-20260125T043207Z",
+      "scenario_id": "scenario.sentiment_chain",
+      "tinyllama_latency_ms": 60
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.hallucinator_imagination-20260125T043237Z.json",
+      "coverage": {
+        "requirements": {
+          "hallucinator_snapshot": false,
+          "tinyllama_health_snapshot": false
+        },
+        "status": "missing"
+      },
+      "presentation": {
+        "has_hypothesis": false,
+        "view_counts": {
+          "chain_quality": 1
+        }
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.hallucinator_imagination-20260125T043237Z",
+      "scenario_id": "scenario.hallucinator_imagination",
+      "tinyllama_latency_ms": 0
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.pressure_alert-20260125T043239Z.json",
+      "coverage": {
+        "requirements": {
+          "ledger_metadata.pressure_signal": true,
+          "pressure_alert": true,
+          "pressure_history": true
+        },
+        "status": "full"
+      },
+      "presentation": {
+        "view_counts": {}
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.pressure_alert-20260125T043239Z",
+      "scenario_id": "scenario.pressure_alert",
+      "tinyllama_latency_ms": 9
+    }
+  ],
+  "schema_version": "1.0.0"
+}

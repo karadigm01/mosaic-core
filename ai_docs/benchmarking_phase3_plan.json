@@ -1,0 +1,140 @@
+{
+  "document_id": "benchmarking_phase3_plan",
+  "phase": "Phase 3 - Dashboard & Reporting",
+  "created_timestamp": "2026-01-25T05:20:00Z",
+  "author": "GitHub Copilot (GPT-5.1-Codex)",
+  "status": "in_progress",
+  "purpose": "Define the governance scope for Phase 3 benchmarking so playlist evidence, dashboard diffs, and human summaries remain synchronized.",
+  "objectives": [
+    "Expand playlist coverage with dashboard-first regression checks",
+    "Persist historical dashboard snapshots for governance diffs",
+    "Automate markdown surfaces (SYSTEM_STATUS / SYSTEM_SUMMARY) from dashboard JSON"
+  ],
+  "governance_alignment": {
+    "I1_function_determinism": "Reuse catalog scenarios and pytest targets with fixed inputs so dashboard diffs reflect deterministic runs.",
+    "I2_memory_isolation": "Dashboard generation only reads log + JSON artifacts; no new caches beyond existing benchmarking_runner state.",
+    "I3_workspace_coherence": "All Phase 3 artifacts remain JSON-first under ai_docs/ and logs/benchmarks/ per core_reference.",
+    "I4_documentation_purity": "SYSTEM_STATUS.md and SYSTEM_SUMMARY.md will cite dashboard data rather than embed bespoke logic."
+  },
+  "dependencies": [
+    "src/runtime/benchmarking_runner.py",
+    "src/runtime/benchmark_dashboard_cli.py",
+    "ai_docs/benchmarking_dashboard.json",
+    "knowledge_base/kb_index.json",
+    "logs/benchmarks/*.json"
+  ],
+  "playlists": [
+    {
+      "id": "playlist.phase3_observability",
+      "description": "Baseline playlist to confirm dashboard coverage + presentation diffs before governance export.",
+      "scenario_sequence": [
+        "scenario.sentiment_chain",
+        "scenario.hallucinator_imagination",
+        "scenario.pressure_alert"
+      ],
+      "pytest_targets": [
+        "tests/test_benchmarking_runner.py::test_dashboard_highlights_regressions",
+        "tests/test_proof_evaluator_tile.py::test_chain_quality_scores_surface_pressure"
+      ],
+      "telemetry_expectations": {
+        "coverage": [
+          "proof.result_summary",
+          "proof.resource_usage.pressure_state",
+          "presentation_views",
+          "hallucinator_snapshot",
+          "tinyllama_health_snapshot",
+          "ledger_metadata.pressure_signal"
+        ],
+        "presentation_views": [
+          "alert_panel",
+          "chain_quality",
+          "pressure_history",
+          "hallucinator_hypothesis"
+        ],
+        "dashboard_source": "ai_docs/benchmarking_dashboard.json"
+      },
+      "success_criteria": [
+        "Dashboard shows status=\"full\" for every scenario in the playlist",
+        "Diff summary lists aggregate metric deltas against the previous playlist artifact",
+        "Automation ledger records scenario + aggregate entries (auto-0007) with playlist reference"
+      ],
+      "evidence_artifacts": {
+        "playlist_bundle": "logs/benchmarks/playlist.phase3_observability-<timestamp>.json",
+        "dashboard_snapshot": "ai_docs/benchmarking_dashboard.json",
+        "governance_markdown": [
+          "SYSTEM_STATUS.md",
+          "SYSTEM_SUMMARY.md"
+        ]
+      }
+    },
+    {
+      "id": "playlist.phase3_regression",
+      "description": "Extended playlist that stitches TinyLLaMA demos with ledger-driven pytest to stress dashboard diffs.",
+      "scenario_sequence": [
+        "scenario.hallucinator_imagination",
+        "scenario.sentiment_chain",
+        "scenario.pressure_alert"
+      ],
+      "pytest_targets": [
+        "tests/test_guided_hallucinator_tile.py::test_hallucinator_emits_snapshot",
+        "tests/test_component_coverage_sync.py::test_dashboard_fields_present"
+      ],
+      "telemetry_expectations": {
+        "tinyllama_latency_window_ms": 50,
+        "max_allowed_latency_regression_ms": 5,
+        "required_views": [
+          "pressure_alert",
+          "pressure_history",
+          "hallucinator_hypothesis"
+        ],
+        "knowledge_base_sync": "kb_index automation counters increment once per playlist"
+      },
+      "success_criteria": [
+        "Benchmarking runner emits playlist_diffs.scenario_regressions when latency exceeds threshold",
+        "Dashboard view_counts reflect every presentation view listed above",
+        "Knowledge base automation metrics remain in lock-step with automation_runs ledger"
+      ],
+      "evidence_artifacts": {
+        "playlist_bundle": "logs/benchmarks/playlist.phase3_regression-<timestamp>.json",
+        "diff_baseline": "logs/benchmarks/playlist.playlist.phase2_seed-20260125T051116Z.json"
+      }
+    }
+  ],
+  "recent_runs": [
+    {
+      "playlist_id": "playlist.phase3_observability",
+      "run_id": "auto-0007-run-playlist.playlist.phase3_observability-20260125T062643Z",
+      "timestamp": "2026-01-25T06:26:43Z",
+      "dashboard_snapshot": "ai_docs/benchmarking_dashboard.20260125T062643Z.json",
+      "notes": "Baseline playlist captured 3/3 scenarios and seeded the dashboard archive feed."
+    },
+    {
+      "playlist_id": "playlist.phase3_regression",
+      "run_id": "auto-0007-run-playlist.playlist.phase3_regression-20260125T062749Z",
+      "timestamp": "2026-01-25T06:27:49Z",
+      "dashboard_snapshot": "ai_docs/benchmarking_dashboard.20260125T062749Z.json",
+      "notes": "Regression playlist validated pytest hooks and produced the first governance diff snapshot."
+    }
+  ],
+  "dashboard_expectations": {
+    "snapshot_path": "ai_docs/benchmarking_dashboard.json",
+    "schema_version": "1.0.0",
+    "required_fields": [
+      "coverage_snapshot",
+      "latest_run",
+      "scenario_highlights[*].coverage.status",
+      "scenario_highlights[*].presentation.view_counts"
+    ],
+    "history_strategy": "Archive each playlist run under logs/benchmarks/playlist.* and reference prior snapshot in diff_summary.baseline_artifact"
+  },
+  "success_metrics": [
+    "At least two Phase 3 playlist runs recorded with dashboard diffs",
+    "SYSTEM_STATUS.md + SYSTEM_SUMMARY.md cite dashboard data instead of hand-written coverage notes",
+    "knowledge_base/kb_index.json timestamps match the latest playlist run"
+  ],
+  "next_steps": [
+    "Map hallucinator telemetry aliases so coverage flips to full once snapshots land in proofs",
+    "Enforce regression playlist latency thresholds and flag scenario_regressions when window > 5 ms",
+    "Extend benchmark_dashboard_cli automation to refresh SYSTEM_SUMMARY.md alongside SYSTEM_STATUS.md"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "coverage_snapshot": {
+    "failing_scenarios": [],
+    "pytest_targets": [],
+    "scenario_count": 2,
+    "tinyllama_latency_span_ms": 0
+  },
+  "last_updated": "2026-02-21T05:26:39Z",
+  "latest_run": {
+    "aggregate_metrics": {
+      "failures": 0,
+      "scenario_count": 2,
+      "tinyllama_latency_max_ms": 12,
+      "tinyllama_latency_min_ms": 12,
+      "total_duration_seconds": 0
+    },
+    "artifact_path": "benchmarks/playlist.playlist.test-20260221T052639Z.json",
+    "diff_summary": {
+      "aggregate_delta": {
+        "failures": 0,
+        "tinyllama_latency_max_ms": 0,
+        "tinyllama_latency_min_ms": 0,
+        "total_duration_seconds": 0
+      },
+      "baseline_artifact": "benchmarks/playlist.playlist.test-20260221T052639Z.json",
+      "scenario_regressions": []
+    },
+    "playlist_id": "playlist.test",
+    "run_id": "auto-0007-run-playlist.playlist.test-20260221T052639Z"
+  },
+  "scenario_highlights": [
+    {
+      "artifact_path": "benchmarks/scenario.alpha-20260221T052639Z.json",
+      "coverage": {
+        "requirements": {},
+        "status": "not_applicable"
+      },
+      "presentation": {
+        "view_counts": {}
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.alpha-20260221T052639Z",
+      "scenario_id": "scenario.alpha",
+      "tinyllama_latency_ms": 12
+    },
+    {
+      "artifact_path": "benchmarks/scenario.beta-20260221T052639Z.json",
+      "coverage": {
+        "requirements": {},
+        "status": "not_applicable"
+      },
+      "presentation": {
+        "view_counts": {}
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.beta-20260221T052639Z",
+      "scenario_id": "scenario.beta",
+      "tinyllama_latency_ms": 12
+    }
+  ],
+  "schema_version": "1.0.0"
+}

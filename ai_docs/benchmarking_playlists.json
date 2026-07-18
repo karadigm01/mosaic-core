@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "generated": "2026-01-25T00:00:00Z",
+  "playlists": [
+    {
+      "id": "playlist.phase2_seed",
+      "name": "Phase 2 Seed Playlist",
+      "description": "Sequentially runs the sentiment, hallucinator, and pressure-alert scenarios to produce a single evidence bundle.",
+      "scenario_sequence": [
+        "scenario.sentiment_chain",
+        "scenario.hallucinator_imagination",
+        "scenario.pressure_alert"
+      ],
+      "pytest_targets": [],
+      "evidence_tags": [
+        "phase2",
+        "benchmark.playlist"
+      ],
+      "success_criteria": [
+        "All scenario return codes equal 0",
+        "Playlist artifact contains diffs and TinyLLaMA telemetry"
+      ],
+      "diff_targets": {
+        "aggregate_metrics": [
+          "failures",
+          "tinyllama_latency_max_ms",
+          "total_duration_seconds"
+        ],
+        "scenario_fields": [
+          "command_result.return_code",
+          "health_snapshot.latency_ms"
+        ]
+      }
+    },
+    {
+      "id": "playlist.phase2_regression",
+      "name": "Phase 2 Regression",
+      "description": "Runs the seed playlist plus the alert-panel pytest target to diff alert severity + latency trends.",
+      "scenario_sequence": [
+        "scenario.sentiment_chain",
+        "scenario.hallucinator_imagination",
+        "scenario.pressure_alert"
+      ],
+      "pytest_targets": [
+        "tests/test_alert_panel_tile.py::test_alert_panel_severity_order"
+      ],
+      "evidence_tags": [
+        "phase2",
+        "benchmark.playlist",
+        "regression"
+      ],
+      "success_criteria": [
+        "Playlist and pytest targets complete with return code 0",
+        "Diff bundle highlights alert panel severity changes"
+      ],
+      "diff_targets": {
+        "aggregate_metrics": [
+          "failures",
+          "tinyllama_latency_min_ms",
+          "tinyllama_latency_max_ms"
+        ],
+        "scenario_fields": [
+          "presentation_views",
+          "pressure_state"
+        ]
+      }
+    },
+    {
+      "id": "playlist.phase3_observability",
+      "name": "Phase 3 Observability Baseline",
+      "description": "Baseline playlist to confirm dashboard coverage and presentation diffs before governance export.",
+      "scenario_sequence": [
+        "scenario.sentiment_chain",
+        "scenario.hallucinator_imagination",
+        "scenario.pressure_alert"
+      ],
+      "pytest_targets": [
+        "tests/test_benchmarking_runner.py::test_dashboard_highlights_regressions",
+        "tests/test_proof_evaluator_tile.py::test_chain_quality_scores_surface_pressure"
+      ],
+      "evidence_tags": [
+        "phase3",
+        "benchmark.playlist",
+        "observability"
+      ],
+      "success_criteria": [
+        "Dashboard shows full coverage for every scenario",
+        "Diff summary lists aggregate metric deltas versus the previous playlist artifact",
+        "Automation ledger records scenario and aggregate entries for pattern auto-0007"
+      ],
+      "telemetry_expectations": {
+        "coverage": [
+          "proof.result_summary",
+          "proof.resource_usage.pressure_state",
+          "presentation_views",
+          "hallucinator_snapshot",
+          "tinyllama_health_snapshot",
+          "ledger_metadata.pressure_signal"
+        ],
+        "presentation_views": [
+          "alert_panel",
+          "chain_quality",
+          "pressure_history",
+          "hallucinator_hypothesis"
+        ]
+      },
+      "diff_targets": {
+        "aggregate_metrics": [
+          "failures",
+          "tinyllama_latency_min_ms",
+          "tinyllama_latency_max_ms",
+          "total_duration_seconds"
+        ],
+        "scenario_fields": [
+          "command_result.return_code",
+          "health_snapshot.latency_ms"
+        ]
+      }
+    },
+    {
+      "id": "playlist.phase3_regression",
+      "name": "Phase 3 Regression",
+      "description": "Extended playlist that stitches TinyLLaMA demos with ledger-driven pytest targets to stress dashboard diffs.",
+      "scenario_sequence": [
+        "scenario.hallucinator_imagination",
+        "scenario.sentiment_chain",
+        "scenario.pressure_alert"
+      ],
+      "pytest_targets": [
+        "tests/test_guided_hallucinator_tile.py::test_hallucinator_emits_snapshot",
+        "tests/test_component_coverage_sync.py::test_dashboard_fields_present"
+      ],
+      "evidence_tags": [
+        "phase3",
+        "benchmark.playlist",
+        "regression"
+      ],
+      "success_criteria": [
+        "Runner emits playlist_diffs.scenario_regressions when latency exceeds threshold",
+        "Dashboard view_counts reflect every required presentation view",
+        "Knowledge base automation metrics stay aligned with automation_runs index"
+      ],
+      "telemetry_expectations": {
+        "tinyllama_latency_window_ms": 50,
+        "max_allowed_latency_regression_ms": 5,
+        "required_views": [
+          "pressure_alert",
+          "pressure_history",
+          "hallucinator_hypothesis"
+        ]
+      },
+      "diff_targets": {
+        "aggregate_metrics": [
+          "failures",
+          "tinyllama_latency_min_ms",
+          "tinyllama_latency_max_ms",
+          "total_duration_seconds"
+        ],
+        "scenario_fields": [
+          "command_result.return_code",
+          "health_snapshot.latency_ms",
+          "presentation.view_counts"
+        ]
+      }
+    }
+  ]
+}

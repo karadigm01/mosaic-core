@@ -1,0 +1,105 @@
+{
+  "component_id": "audit_query_api",
+  "component_name": "Audit Ledger Query API Contract",
+  "component_type": "api_spec",
+  "version": "0.1.1",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-18T13:00:00Z",
+  "dependencies": [
+    "audit_ledger_schema",
+    "substrate_contracts"
+  ],
+  "endpoints": [
+    {
+      "name": "get_entry_by_proof",
+      "method": "GET",
+      "path": "/ledger/entries/{proof_id}",
+      "request_schema": {
+        "proof_id": "string"
+      },
+      "response_schema": "ledger_entry",
+      "latency_target_ms": 30
+    },
+    {
+      "name": "scan_by_actor",
+      "method": "POST",
+      "path": "/ledger/entries/scan",
+      "request_schema": {
+        "actor_id": "string",
+        "time_range": {
+          "start": "ISO-8601",
+          "end": "ISO-8601"
+        },
+        "view_filter": "array of preferred_views",
+        "pressure_status": "enum [any, pressure_detected, within_budget]"
+      },
+      "response_schema": {
+        "entries": "array of ledger_entry",
+        "pressure_summary": "object - counts by pressure_status"
+      },
+      "latency_target_ms": 50
+    },
+    {
+      "name": "replay_by_goal",
+      "method": "POST",
+      "path": "/ledger/replay",
+      "request_schema": {
+        "goal_type": "string",
+        "goal_id": "string"
+      },
+      "response_schema": {
+        "proof_record": "proof_record",
+        "replay_token": "string"
+      },
+      "latency_target_ms": 80
+    },
+    {
+      "name": "export_chunk",
+      "method": "POST",
+      "path": "/ledger/export",
+      "request_schema": {
+        "batch_id": "string",
+        "format": "enum [json, csv]",
+        "include_pressure_signals": "boolean"
+      },
+      "response_schema": {
+        "download_link": "string",
+        "pressure_signals": "array of pressure_signal"
+      },
+      "latency_target_ms": 120
+    }
+  ],
+  "authz_policies": {
+    "roles": [
+      "user",
+      "auditor",
+      "admin"
+    ],
+    "permissions": {
+      "user": [
+        "get_entry_by_proof",
+        "scan_by_actor"
+      ],
+      "auditor": [
+        "get_entry_by_proof",
+        "scan_by_actor",
+        "replay_by_goal",
+        "export_chunk"
+      ],
+      "admin": [
+        "*"
+      ]
+    }
+  },
+  "monitoring": {
+    "metrics": [
+      "request_latency_ms",
+      "throughput_rps",
+      "error_rate"
+    ],
+    "alert_thresholds": {
+      "request_latency_ms": 200,
+      "error_rate": 0.01
+    }
+  }
+}

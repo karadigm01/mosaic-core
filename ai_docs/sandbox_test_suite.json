@@ -1,0 +1,83 @@
+{
+  "component_id": "sandbox_test_suite",
+  "component_name": "Automated Sandbox Validation Suite",
+  "component_type": "test_spec",
+  "version": "0.1.0",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-17T00:00:00Z",
+  "dependencies": [
+    "substrate_contracts",
+    "tile_lifecycle_protocol",
+    "example_tiles"
+  ],
+  "test_profiles": [
+    {
+      "profile_id": "sandbox.latency_guard",
+      "description": "Ensures tile latency stays within declared p95 budget.",
+      "applicability": "all_tiles",
+      "input_generation": {
+        "method": "contract_driven",
+        "templates": [
+          "proof_record_templates[*].tile_sequence"
+        ]
+      },
+      "assertions": [
+        {
+          "metric": "latency_p95_ms",
+          "operator": "<=",
+          "threshold_source": "tile.resource_budget.latency_p95_ms"
+        },
+        {
+          "metric": "cpu_percent",
+          "operator": "<=",
+          "threshold": 30
+        }
+      ],
+      "evidence": "sandbox_result_set"
+    },
+    {
+      "profile_id": "sandbox.determinism_replay",
+      "description": "Validates deterministic outputs for identical inputs.",
+      "applicability": "I1",
+      "input_generation": {
+        "method": "pairwise_repeat",
+        "repeat_count": 5
+      },
+      "assertions": [
+        {
+          "metric": "output_hash",
+          "operator": "==",
+          "threshold_source": "first_run_hash"
+        }
+      ],
+      "evidence": "determinism_proof_hash"
+    },
+    {
+      "profile_id": "sandbox.presentation_manifest",
+      "description": "Checks tile manifests produce complete user views.",
+      "applicability": "tiles_with_manifest",
+      "input_generation": {
+        "method": "mock_proof_feed",
+        "templates": [
+          "presentation_views"
+        ]
+      },
+      "assertions": [
+        {
+          "metric": "view_completeness",
+          "operator": "==",
+          "threshold": 1.0
+        }
+      ],
+      "evidence": "presentation_report"
+    }
+  ],
+  "reporting": {
+    "formats": [
+      "json",
+      "ledger_entry"
+    ],
+    "latency_target_ms": 100,
+    "auto_publish": true
+  }
+}

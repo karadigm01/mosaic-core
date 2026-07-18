@@ -1,0 +1,141 @@
+{
+  "component_id": "audit_ledger_schema",
+  "component_name": "Inference Proof Audit Ledger Schema",
+  "component_type": "schema_bundle",
+  "version": "0.1.1",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-18T13:00:00Z",
+  "dependencies": [
+    "substrate_contracts"
+  ],
+  "interfaces": [],
+  "performance_metrics": {
+    "max_append_latency_ms": 10,
+    "retention_days": 365,
+    "resource_ceiling_percent": 5
+  },
+  "test_coverage": 0,
+  "compliance_status": "I1_I2_I3_I4_compliant",
+  "schemas": {
+    "ledger_root": {
+      "description": "Top-level structure for the append-only audit ledger.",
+      "required_fields": [
+        "ledger_id",
+        "schema_version",
+        "retention_policy",
+        "entries",
+        "integrity_proofs"
+      ],
+      "field_specs": {
+        "ledger_id": "string",
+        "schema_version": "string",
+        "retention_policy": "object - ttl_days, archival_target",
+        "entries": "array of ledger_entry",
+        "integrity_proofs": "array - per-chunk hash trees"
+      }
+    },
+    "ledger_entry": {
+      "description": "Single immutable record summarizing a proof execution.",
+      "required_fields": [
+        "entry_id",
+        "proof_id",
+        "timestamp",
+        "tile_sequence",
+        "capability_bindings",
+        "constraint_evidence",
+        "resource_usage",
+        "pressure_state",
+        "presentation_views",
+        "user_context",
+        "hash_chain"
+      ],
+      "field_specs": {
+        "entry_id": "string",
+        "proof_id": "string (FK to proof_record.proof_id)",
+        "timestamp": "ISO-8601",
+        "tile_sequence": "array of {tile_id, lifecycle_state, contract_hash}",
+        "capability_bindings": "array of {tile_id, capability_id, utilization_percent}",
+        "constraint_evidence": "object - hashes of I1..I4 proof payloads",
+        "resource_usage": "object - cpu_percent_budget, deterministic work metrics (input_tokens, route_checks, operation_units) and optional traditional utilization percentages",
+        "pressure_state": "object - {status, ratio, signal_id, severity, work_metrics_ref}",
+        "pressure_alerts": "array of pressure_alert",
+        "presentation_views": "array referencing generated artifacts",
+        "user_context": "object - session_id, actor_id, consent_flags",
+        "hash_chain": "object - prev_hash, current_hash"
+      }
+    },
+    "pressure_signal": {
+      "description": "Deterministic record describing contract pressure detected during execution.",
+      "required_fields": [
+        "signal_id",
+        "proof_id",
+        "goal_id",
+        "tile_id",
+        "metric",
+        "observed_value",
+        "contract_budget",
+        "pressure_ratio"
+      ],
+      "field_specs": {
+        "signal_id": "string",
+        "proof_id": "string",
+        "goal_id": "string",
+        "tile_id": "string",
+        "metric": "string",
+        "observed_value": "float",
+        "contract_budget": "float",
+        "pressure_ratio": "float"
+      }
+    },
+    "pressure_alert": {
+      "description": "Structured alert derived from a pressure signal and severity policy.",
+      "required_fields": [
+        "alert_id",
+        "signal_id",
+        "tile_id",
+        "pressure_ratio",
+        "severity"
+      ],
+      "field_specs": {
+        "alert_id": "string",
+        "signal_id": "string",
+        "tile_id": "string",
+        "pressure_ratio": "float",
+        "severity": "enum [warning, severe]"
+      }
+    },
+    "integrity_proof": {
+      "description": "Merkle/anchoring metadata for a batch of entries.",
+      "required_fields": [
+        "batch_id",
+        "entry_ids",
+        "merkle_root",
+        "anchor",
+        "attestation"
+      ],
+      "field_specs": {
+        "batch_id": "string",
+        "entry_ids": "array of entry_id",
+        "merkle_root": "string",
+        "anchor": "object - medium (local, public_chain, notary) and reference",
+        "attestation": "object - signer_id, signature"
+      }
+    }
+  },
+  "presentation_hooks": {
+    "default_views": [
+      "timeline",
+      "causal_graph",
+      "resource_radar"
+    ],
+    "query_api_contract": {
+      "operations": [
+        "get_entry_by_proof",
+        "scan_by_actor",
+        "replay_by_goal",
+        "export_chunk"
+      ],
+      "latency_target_ms": 30
+    }
+  }
+}

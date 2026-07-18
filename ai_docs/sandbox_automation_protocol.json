@@ -1,0 +1,91 @@
+{
+  "component_id": "sandbox_automation_protocol",
+  "component_name": "Sandbox Execution Automation Protocol",
+  "component_type": "automation_spec",
+  "version": "0.1.0",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-17T00:00:00Z",
+  "dependencies": [
+    "sandbox_test_suite",
+    "tile_lifecycle_protocol",
+    "audit_ledger_schema"
+  ],
+  "automation_flow": {
+    "trigger_events": [
+      "tile_entered_sandbox",
+      "contract_updated",
+      "resource_budget_change"
+    ],
+    "stages": [
+      {
+        "name": "provision_environment",
+        "description": "Allocate capability descriptor matching tile resource budget (<=30%).",
+        "inputs": [
+          "reasoning_tile_contract",
+          "capability_descriptors"
+        ],
+        "outputs": [
+          "sandbox_environment_id"
+        ],
+        "latency_target_ms": 200,
+        "failure_policy": "retry_3_then_alert"
+      },
+      {
+        "name": "execute_test_profiles",
+        "description": "Run sandbox test suite profiles sequentially with telemetry capture.",
+        "inputs": [
+          "sandbox_test_suite",
+          "proof_record_templates"
+        ],
+        "outputs": [
+          "sandbox_result_set"
+        ],
+        "latency_target_ms": 5000,
+        "failure_policy": "abort_and_log"
+      },
+      {
+        "name": "aggregate_evidence",
+        "description": "Normalize metrics, compute compliance status, prepare ledger entry draft.",
+        "inputs": [
+          "sandbox_result_set"
+        ],
+        "outputs": [
+          "sandbox_evidence_bundle"
+        ],
+        "latency_target_ms": 200,
+        "failure_policy": "abort_and_log"
+      },
+      {
+        "name": "ledger_append",
+        "description": "Write sandbox completion entry to audit ledger and notify lifecycle governor.",
+        "inputs": [
+          "sandbox_evidence_bundle"
+        ],
+        "outputs": [
+          "ledger_entry_id"
+        ],
+        "latency_target_ms": 50,
+        "failure_policy": "rollback_and_alert"
+      }
+    ]
+  },
+  "monitoring": {
+    "metrics": [
+      "sandbox_success_rate",
+      "avg_latency_ms",
+      "resource_utilization_percent"
+    ],
+    "alert_thresholds": {
+      "sandbox_success_rate": 0.98,
+      "avg_latency_ms": 6000,
+      "resource_utilization_percent": 25
+    }
+  },
+  "documentation_hooks": {
+    "knowledge_base": [
+      "session_history",
+      "techniques"
+    ],
+    "component_index_updates": true
+  }
+}

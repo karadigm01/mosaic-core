@@ -1,0 +1,172 @@
+{
+  "service": "benchmark_dashboard_service",
+  "description": "Usable HTTP endpoints exposed by the lightweight benchmarking dashboard server.",
+  "host": "127.0.0.1",
+  "default_port": 0,
+  "note": "Pass --port when launching; 0 lets the OS choose a free port.",
+  "endpoints": [
+    {
+      "name": "health",
+      "method": "GET",
+      "path": "/healthz",
+      "description": "Liveness probe; returns 200 when the service is reachable.",
+      "query": {},
+      "request_body": null,
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "name": "dashboard_state",
+      "method": "GET",
+      "path": "/api/dashboard",
+      "description": "Returns the latest dashboard payload plus history and TinyLLaMA health snapshot.",
+      "query": {
+        "history_limit": "integer >=0 (default 5)",
+        "include_payload": """"1" to embed full history payloads; "0" (default) for summaries."""
+      },
+      "request_body": null,
+      "response": {
+        "dashboard": "object from ai_docs/benchmarking_dashboard.json",
+        "history": "array of history entries (path, last_updated, playlist_id, run_id, scenario_count, coverage_status[, payload])",
+        "tinyllama_health": "latest_tinyllama_health_snapshot from knowledge_base/kb_index.json",
+        "operations": "benchmark_operations summary (replay/remediation counters and recent events)",
+        "source_paths": {
+          "dashboard": "path to dashboard JSON",
+          "history_dir": "directory containing dashboard.*.json history",
+          "kb_index": "path to knowledge_base/kb_index.json"
+        }
+      }
+    },
+    {
+      "name": "macro_tile_catalog",
+      "method": "GET",
+      "path": "/api/macro_tiles/catalog",
+      "description": "Lists available macro tile specs from DEFAULT_CATALOG_PATH.",
+      "query": {},
+      "request_body": null,
+      "response": {
+        "tiles": [
+          {
+            "tile_id": "string",
+            "tile_name": "string",
+            "capability": "string|null",
+            "lifecycle_state": "proposed|sandboxed|promoted",
+            "inputs": "array of fact_type strings",
+            "outputs": "array of fact_type strings"
+          }
+        ]
+      }
+    },
+    {
+      "name": "artifact_fetch",
+      "method": "GET",
+      "path": "/api/artifact",
+      "description": "Fetches a JSON/text artifact by relative or absolute path restricted to allowed roots (repo root, dashboard dir, history dir, kb_index dir, benchmark_operations dir).",
+      "query": {
+        "path": "relative or absolute path to artifact"
+      },
+      "request_body": null,
+      "response": {
+        "path": "relative path to artifact",
+        "text": "file contents as string",
+        "payload": "parsed JSON if file is valid JSON (optional)"
+      }
+    },
+    {
+      "name": "root_index",
+      "method": "GET",
+      "path": "/",
+      "description": "Service banner; advertises primary endpoints.",
+      "query": {},
+      "request_body": null,
+      "response": {
+        "message": "Benchmark dashboard service",
+        "endpoints": ["/api/dashboard", "/healthz"]
+      }
+    },
+    {
+      "name": "scenario_replay",
+      "method": "POST",
+      "path": "/api/replay",
+      "description": "Runs a benchmark scenario by ID via benchmarking_runner and records a replay event.",
+      "query": {},
+      "request_body": {
+        "scenario_id": "required string"
+      },
+      "response": {
+        "status": "ok",
+        "replay": "recorded replay entry",
+        "run_id": "string",
+        "artifact_path": "relative path to generated artifact",
+        "operations": "benchmark_operations summary"
+      },
+      "errors": {
+        "scenario_id_required": "missing scenario_id",
+        "invalid_json": "malformed JSON",
+        "replay_failed": "unexpected error during scenario execution"
+      }
+    },
+    {
+      "name": "scenario_remediation",
+      "method": "POST",
+      "path": "/api/remediation",
+      "description": "Opens or executes remediation for a scenario. Supports open_task (just records) or pytest_subset (runs scenario).",
+      "query": {},
+      "request_body": {
+        "scenario_id": "required string",
+        "action": "required string: open_task | pytest_subset",
+        "reason": "optional string (for open_task)"
+      },
+      "response": {
+        "status": "ok",
+        "remediation": "remediation event entry",
+        "operations": "benchmark_operations summary"
+      },
+      "errors": {
+        "scenario_id_and_action_required": "missing scenario_id or action",
+        "unsupported_action": "action not in allowed set",
+        "invalid_json": "malformed JSON",
+        "remediation_failed": "unexpected error during pytest_subset execution"
+      }
+    },
+    {
+      "name": "macro_tile_generate",
+      "method": "POST",
+      "path": "/api/macro_tiles",
+      "description": "Generates a resolver-delegated macro tile from a capability plan and optionally registers the component when promoted.",
+      "query": {},
+      "request_body": {
+        "tile_id": "required string",
+        "tile_name": "required string",
+        "plan": "required array of tile_ids (>=2 entries)",
+        "generated_by": "optional string (default dashboard_service)",
+        "lifecycle_state": "proposed|sandboxed|promoted (default proposed)",
+        "register_component": "boolean; allowed only when lifecycle_state=promoted",
+        "timestamp": "optional ISO-8601 string forwarded to artifacts"
+      },
+      "response": {
+        "status": "ok",
+        "artifacts": {
+          "module": "relative path to generated module",
+          "doc": "relative path to generated doc",
+          "test": "relative path to generated test",
+          "patch": "relative path to registry patch"
+        },
+        "lifecycle_state": "echoed lifecycle_state",
+        "component_registered": "bool",
+        "component_index_path": "relative path (present only when component_registered is true)"
+      },
+      "errors": {
+        "invalid_json": "malformed JSON",
+        "invalid_lifecycle_state": "lifecycle_state not in proposed|sandboxed|promoted",
+        "register_component requires lifecycle_state=promoted": "register_component true while not promoted",
+        "tile_id_and_tile_name_required": "missing identifiers",
+        "plan_list_required": "plan is not an array",
+        "plan_must_include_at_least_two_tiles": "plan too short",
+        "macro_generation_failed": "unexpected generation error",
+        "macro_registration_failed": "component registration failure"
+      }
+    }
+  ]
+}

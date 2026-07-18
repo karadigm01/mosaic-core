@@ -1,0 +1,70 @@
+name: Automation Runner
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  run-automation-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt', 'pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest coverage
+
+      - name: Prepare automation index copy
+        run: |
+          mkdir -p logs
+          cp knowledge_base/automation_runs/index.json logs/automation-runs-ci.json
+
+      - name: Execute automation runner with coverage sync
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m runtime.automation_runner \
+            --pattern-id auto-0003 \
+            --enable-coverage-sync \
+            --automation-index logs/automation-runs-ci.json \
+            --notes "CI automation coverage run"
+
+      - name: Verify governance artifacts unchanged
+        if: ${{ success() }}
+        run: |
+          set -euo pipefail
+          CHANGES=$(git status --porcelain -- ai_docs/component_index.json knowledge_base/automation_runs/index.json || true)
+          if [[ -n "$CHANGES" ]]; then
+            echo "Detected governance artifact drift after automation runner:"
+            echo "$CHANGES"
+            echo "Run 'python -m runtime.automation_runner --pattern-id auto-0003 --enable-coverage-sync' locally and commit the updated governance files."
+            exit 1
+          fi
+
+      - name: Upload automation artifacts
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: automation-runner-logs
+          path: logs/

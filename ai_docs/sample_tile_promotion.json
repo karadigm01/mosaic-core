@@ -1,0 +1,74 @@
+{
+  "component_id": "sample_tile_promotion",
+  "component_name": "Sample Tile Promotion Runbook",
+  "component_type": "process_record",
+  "version": "0.1.0",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-17T00:00:00Z",
+  "dependencies": [
+    "tile_lifecycle_protocol",
+    "sandbox_automation_protocol",
+    "sandbox_test_suite",
+    "audit_query_api",
+    "presentation_renderer_profiles"
+  ],
+  "tile_reference": "tile.lang.semantic_router",
+  "steps": [
+    {
+      "order": 1,
+      "state": "proposed",
+      "actions": [
+        "Submit reasoning_tile_contract",
+        "Attach presentation_manifest",
+        "Run threat assessment"
+      ],
+      "evidence": [
+        "contract_hash",
+        "security_review_id"
+      ]
+    },
+    {
+      "order": 2,
+      "state": "sandboxed",
+      "actions": [
+        "Trigger sandbox automation",
+        "Execute sandbox_test_suite profiles",
+        "Collect sandbox_result_set"
+      ],
+      "evidence": [
+        "sandbox_result_set",
+        "presentation_report"
+      ]
+    },
+    {
+      "order": 3,
+      "state": "validated",
+      "actions": [
+        "Aggregate evidence",
+        "Ledger append",
+        "Governance sign-off"
+      ],
+      "evidence": [
+        "ledger_entry_id",
+        "approval_record"
+      ]
+    },
+    {
+      "order": 4,
+      "state": "promoted",
+      "actions": [
+        "Deploy capability bindings",
+        "Notify renderer layer"
+      ],
+      "evidence": [
+        "capability_binding_plan",
+        "renderer_subscription_id"
+      ]
+    }
+  ],
+  "example_artifacts": {
+    "sandbox_result_set": "sandbox://result/001",
+    "ledger_entry_id": "ledger://entry/abc123",
+    "renderer_view": "renderer.timeline/preview"
+  }
+}

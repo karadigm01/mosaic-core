@@ -1,0 +1,105 @@
+{
+  "coverage_snapshot": {
+    "failing_scenarios": [],
+    "pytest_targets": [
+      "tests/test_benchmarking_runner.py::test_dashboard_highlights_regressions",
+      "tests/test_proof_evaluator_tile.py::test_chain_quality_scores_surface_pressure"
+    ],
+    "scenario_count": 3,
+    "tinyllama_latency_span_ms": 43
+  },
+  "last_updated": "2026-01-25T06:26:43Z",
+  "latest_run": {
+    "aggregate_metrics": {
+      "failures": 0,
+      "scenario_count": 3,
+      "tinyllama_latency_max_ms": 43,
+      "tinyllama_latency_min_ms": 0,
+      "total_duration_seconds": 28
+    },
+    "artifact_path": "logs/benchmarks/playlist.playlist.phase3_observability-20260125T062643Z.json",
+    "diff_summary": {
+      "aggregate_delta": {},
+      "baseline_artifact": null,
+      "scenario_regressions": []
+    },
+    "playlist_id": "playlist.phase3_observability",
+    "run_id": "auto-0007-run-playlist.playlist.phase3_observability-20260125T062643Z"
+  },
+  "scenario_highlights": [
+    {
+      "artifact_path": "logs/benchmarks/scenario.sentiment_chain-20260125T062615Z.json",
+      "coverage": {
+        "requirements": {
+          "presentation_views": true,
+          "proof.resource_usage.pressure_state": true,
+          "proof.result_summary": true
+        },
+        "status": "full"
+      },
+      "presentation": {
+        "has_hypothesis": false,
+        "pressure_state": {
+          "ratio": 0.6,
+          "status": "within_budget"
+        },
+        "view_counts": {
+          "chain_quality": 1
+        }
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.sentiment_chain-20260125T062615Z",
+      "scenario_id": "scenario.sentiment_chain",
+      "tinyllama_latency_ms": 43
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.hallucinator_imagination-20260125T062643Z.json",
+      "coverage": {
+        "requirements": {
+          "hallucinator_snapshot": true,
+          "tinyllama_health_snapshot": true
+        },
+        "status": "full"
+      },
+      "presentation": {
+        "has_hypothesis": true,
+        "max_alert_severity": "severe",
+        "pressure_state": {
+          "ratio": 16.2,
+          "severity": "severe",
+          "status": "pressure_detected"
+        },
+        "view_counts": {
+          "alert_panel": 1,
+          "chain_quality": 1,
+          "hallucinator_hypothesis": 1,
+          "pressure_alert": 1,
+          "pressure_history": 1
+        }
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.hallucinator_imagination-20260125T062643Z",
+      "scenario_id": "scenario.hallucinator_imagination",
+      "tinyllama_latency_ms": 0
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.pressure_alert-20260125T062643Z.json",
+      "coverage": {
+        "requirements": {
+          "ledger_metadata.pressure_signal": true,
+          "pressure_alert": true,
+          "pressure_history": true
+        },
+        "status": "full"
+      },
+      "presentation": {
+        "view_counts": {}
+      },
+      "return_code": 0,
+      "run_id": "auto-0007-run-scenario.pressure_alert-20260125T062643Z",
+      "scenario_id": "scenario.pressure_alert",
+      "tinyllama_latency_ms": 0
+    }
+  ],
+  "schema_version": "1.0.0"
+}

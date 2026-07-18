@@ -1,0 +1,124 @@
+{
+  "component_id": "tile_lifecycle_protocol",
+  "component_name": "Reasoning Tile Lifecycle Protocol",
+  "component_type": "governance_spec",
+  "version": "0.1.0",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-17T00:00:00Z",
+  "dependencies": [
+    "substrate_contracts",
+    "audit_ledger_schema"
+  ],
+  "interfaces": [],
+  "performance_metrics": {
+    "max_promotion_latency_minutes": 10,
+    "max_sandbox_iterations": 5,
+    "target_mean_time_to_roll_back_minutes": 2
+  },
+  "lifecycle_states": [
+    {
+      "state": "proposed",
+      "entry_criteria": [
+        "reasoning_tile_contract submitted",
+        "resource_budget <= 30 percent per metric",
+        "presentation_manifest provided"
+      ],
+      "exit_requirements": [
+        "schema validation success",
+        "threat assessment logged"
+      ],
+      "evidence_artifacts": [
+        "contract_hash",
+        "security_review_id"
+      ]
+    },
+    {
+      "state": "sandboxed",
+      "entry_criteria": [
+        "proposal accepted",
+        "sandbox environment allocated"
+      ],
+      "exit_requirements": [
+        "minimum 100 proof_record simulations",
+        "latency_p95 <= 50 ms",
+        "cpu_percent <= 30",
+        "memory_percent <= 30"
+      ],
+      "evidence_artifacts": [
+        "sandbox_result_set",
+        "resource_profile_report"
+      ]
+    },
+    {
+      "state": "validated",
+      "entry_criteria": [
+        "sandbox metrics satisfied",
+        "audit ledger entries generated"
+      ],
+      "exit_requirements": [
+        "human governance sign-off",
+        "presentation_manifest review"
+      ],
+      "evidence_artifacts": [
+        "approval_record",
+        "manifest_review_id"
+      ]
+    },
+    {
+      "state": "promoted",
+      "entry_criteria": [
+        "validated tile",
+        "capability_binding plan",
+        "rollback contract"
+      ],
+      "exit_requirements": [
+        "deprecation scheduled",
+        "replacement tile designated"
+      ],
+      "evidence_artifacts": [
+        "production_proof_sample",
+        "rollback_plan_id"
+      ]
+    },
+    {
+      "state": "deprecated",
+      "entry_criteria": [
+        "promotion superseded",
+        "knowledge base captures learnings"
+      ],
+      "exit_requirements": [
+        "tile removed from planner",
+        "ledger retention satisfied"
+      ],
+      "evidence_artifacts": [
+        "retirement_certificate",
+        "archival_reference"
+      ]
+    }
+  ],
+  "macro_tile_requirements": {
+    "applicability": "tiles with origin = synthesized",
+    "rules": [
+      "enter at proposed with synthesis_manifest recorded",
+      "manifest must remain attached and auditable through promoted",
+      "delegated capability_plan may not change without restarting lifecycle"
+    ]
+  },
+  "governance_hooks": {
+    "knowledge_base_updates": [
+      "techniques",
+      "constraint_innovations"
+    ],
+    "ledger_requirements": [
+      "log proposal approved",
+      "log sandbox completion",
+      "log promotion",
+      "log retirement"
+    ],
+    "automation_triggers": [
+      "auto_generate_sandbox_tests",
+      "auto_verify_resource_models",
+      "auto_notify_presentation_layer"
+    ]
+  }
+}

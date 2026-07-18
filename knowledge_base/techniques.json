@@ -1,0 +1,225 @@
+{
+  "techniques": [
+    {
+      "id": "tech-0001",
+      "name": "Proof-Governed Tile Lifecycle",
+      "category": "architectural",
+      "description": "Defines the contract-first lifecycle for reasoning tiles from proposal through deprecation using substrate proofs as admission evidence.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Derived while architecting substrate-native inference and governance on 2026-01-17.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.9,
+      "automation_safe": false
+    },
+    {
+      "id": "tech-0002",
+      "name": "Ledger-Anchored Transparency",
+      "category": "documentation",
+      "description": "Bakes user presentation and auditability into inference by coupling proof records with an append-only ledger and presentation manifests.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Introduced alongside the audit ledger schema on 2026-01-17 to guarantee plug-and-play user transparency.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.85,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0003",
+      "name": "Sandbox Enforcement Suite",
+      "category": "testing",
+      "description": "Defines contract-driven sandbox tests that validate latency, determinism, and presentation manifests before tiles promote.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Codified alongside the sandbox test suite on 2026-01-17 to keep documentation, architecture, and testing in lockstep.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.8,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0004",
+      "name": "Automated Sandbox Orchestration",
+      "category": "automation",
+      "description": "Outlines the trigger-driven automation that provisions environments, runs sandbox tests, aggregates evidence, and appends ledger entries.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Captured with the sandbox automation protocol on 2026-01-17.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.83,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0005",
+      "name": "Ledger Query Interface",
+      "category": "documentation",
+      "description": "Defines the API contract for querying audit ledger entries, actor scans, goal replays, and exports with role-based access.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Created with the audit query API specification on 2026-01-17.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.81,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0006",
+      "name": "Renderer Profile Contract",
+      "category": "documentation",
+      "description": "Specifies UI renderer profiles (timeline, causal graph, text summary) so presentation remains plug-and-play with proof data.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Introduced alongside presentation renderer profiles on 2026-01-17.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.82,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0007",
+      "name": "Tile Promotion Runbook",
+      "category": "process",
+      "description": "Step-by-step record showing how a tile moves from proposal to promotion using lifecycle, sandbox, audit, and presentation artifacts.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Derived from the sample tile promotion runbook on 2026-01-17.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.87,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0008",
+      "name": "Runtime Bootstrap Skeleton",
+      "category": "architectural",
+      "description": "Python package + tests mirroring substrate and tile contracts so future components compile against real modules.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Created while initializing src/ runtime stubs on 2026-01-17.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-17T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.9,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0009",
+      "name": "Goal-Resolver Contract Harness",
+      "category": "architectural",
+      "description": "Defines Goal primitives and a Resolver skeleton wiring registry + substrate so reasoning paths are testable before full inference logic exists.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Captured when introducing runtime/resolver.py and companion tests on 2026-01-18 to lock API before implementation.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-18T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.85,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0010",
+      "name": "Deterministic Semantic Router Tile",
+      "category": "architectural",
+      "description": "Implements tile.lang.semantic_router with keyword routes, inherited constraint metadata, and decision facts usable by the resolver proof path.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Introduced on 2026-01-18 while wiring tile execution through the resolver to produce real proofs.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-18T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.88,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0011",
+      "name": "Failure-Proof Resolver Records",
+      "category": "testing",
+      "description": "Resolver emits ledger-ready proofs even on rejection by capturing missing facts, capability gaps, or other validation errors.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Introduced on 2026-01-18 when implementing failure proofs for resolver to ensure refusals are auditable.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-18T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.84,
+      "automation_safe": true
+    },
+    {
+      "id": "tech-0012",
+      "name": "Audit-Hashed Proof Chain",
+      "category": "documentation",
+      "description": "Proof records gain deterministic SHA-256 audit hashes, covering successes and failures with structured error codes for refusal paths.",
+      "constraints_compliance": [
+        "I1",
+        "I2",
+        "I3",
+        "I4"
+      ],
+      "discovery_context": "Captured on 2026-01-18 after wiring resolver to hash proof payloads and classify failure codes.",
+      "validation_status": "proposed",
+      "created_timestamp": "2026-01-18T00:00:00Z",
+      "auto_catalogued": true,
+      "reusability_score": 0.86,
+      "automation_safe": true
+    }
+  ],
+  "metadata": {
+    "total_count": 12,
+    "last_updated": "2026-01-18T00:00:00Z",
+    "schema_version": "2.0.0"
+  }
+}

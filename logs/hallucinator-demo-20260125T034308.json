@@ -1,0 +1,208 @@
+{
+  "capability_bindings": [
+    {
+      "capability_id": "conversation.route",
+      "tile_id": "tile.lang.semantic_router"
+    },
+    {
+      "capability_id": "conversation.imagination",
+      "tile_id": "tile.lang.guided_hallucinator"
+    }
+  ],
+  "chain_quality": {
+    "metrics": {
+      "alert_count": 1.0,
+      "hop_count": 2.0,
+      "pressure_ratio": 16.2,
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "status": "completed",
+      "ttl_seconds": 900
+    },
+    "penalties": {
+      "alert_penalty": 0.05,
+      "hop_penalty": 0.1,
+      "pressure_penalty": 0.5
+    },
+    "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+    "score": 0.35,
+    "tier": "low"
+  },
+  "presentation_views": [
+    {
+      "audit_hash": "hash://sha256/2dc22a868b2a990de505c0a347201c95d2a8e7adcab76bba454703cde13b6287",
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "ratio": 16.2,
+      "severity": "severe",
+      "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+      "tile_id": "tile.lang.guided_hallucinator",
+      "type": "pressure_alert"
+    },
+    {
+      "audit_hash": "hash://sha256/2dc22a868b2a990de505c0a347201c95d2a8e7adcab76bba454703cde13b6287",
+      "confidence": 0.95,
+      "fact_id": "hypothesis::fact.conversation.turn",
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "summary": "Glass cities are cities that are built entirely out of glass, with no visible physical structure other than the glass walls and floors. The glass walls and floors provide a seamless and transparent appearance, allowing for a sense of transparency and connection between the city and its inhabitants.\n\nSelf-check notes:\n- What is the purpose of glass cities?\n- How do they achieve this seamless appearance?\n- What are the benefits of living in a glass city?\n- What are the drawbacks of living in a glass city?\n- What are some examples of glass cities?\n- What are some potential drawbacks of building a glass city?\n- What are some potential benefits of building a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in",
+      "type": "hallucinator_hypothesis"
+    },
+    {
+      "alerts": [
+        {
+          "pressure_ratio": 16.2,
+          "severity": "severe",
+          "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+          "tile_id": "tile.lang.guided_hallucinator"
+        }
+      ],
+      "audit_hash": "hash://sha256/2dc22a868b2a990de505c0a347201c95d2a8e7adcab76bba454703cde13b6287",
+      "fact_id": "fact.alert_panel::proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "type": "alert_panel"
+    },
+    {
+      "audit_hash": "hash://sha256/2dc22a868b2a990de505c0a347201c95d2a8e7adcab76bba454703cde13b6287",
+      "fact_id": "meta.pressure_history::proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "trend": "critical",
+      "type": "pressure_history"
+    },
+    {
+      "audit_hash": "hash://sha256/2dc22a868b2a990de505c0a347201c95d2a8e7adcab76bba454703cde13b6287",
+      "fact_id": "meta.chain_quality::proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "score": 0.35,
+      "tier": "low",
+      "type": "chain_quality"
+    }
+  ],
+  "pressure_state": {
+    "ratio": 16.2,
+    "severity": "severe",
+    "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+    "status": "pressure_detected",
+    "tile_id": "tile.lang.guided_hallucinator"
+  },
+  "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+  "resource_usage": {
+    "chain_quality": {
+      "metrics": {
+        "alert_count": 1.0,
+        "hop_count": 2.0,
+        "pressure_ratio": 16.2,
+        "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+        "status": "completed",
+        "ttl_seconds": 900
+      },
+      "penalties": {
+        "alert_penalty": 0.05,
+        "hop_penalty": 0.1,
+        "pressure_penalty": 0.5
+      },
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "score": 0.35,
+      "tier": "low"
+    },
+    "hop_metrics": [
+      {
+        "hop": 0,
+        "tile_id": "tile.lang.semantic_router",
+        "work_metrics": {
+          "input_tokens": 6.0,
+          "operation_units": 10.0,
+          "route_checks": 4.0
+        }
+      },
+      {
+        "hop": 1,
+        "tile_id": "tile.lang.guided_hallucinator",
+        "work_metrics": {
+          "completion_tokens": 480.0,
+          "operation_units": 486.0,
+          "prompt_tokens": 6.0,
+          "queue_wait_duration_ms": 0.0,
+          "slot_contention_events": 0.0,
+          "timeout_expirations": 0.0
+        }
+      }
+    ],
+    "pressure_history": {
+      "max_ratio": 16.2,
+      "mean_ratio": 16.2,
+      "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+      "severity_counts": {
+        "info": 0,
+        "severe": 1,
+        "warning": 0
+      },
+      "signal_count": 1,
+      "tile_occurrences": {
+        "tile.lang.guided_hallucinator": 1
+      },
+      "trend": "critical"
+    },
+    "pressure_state": {
+      "ratio": 16.2,
+      "severity": "severe",
+      "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+      "status": "pressure_detected",
+      "tile_id": "tile.lang.guided_hallucinator"
+    }
+  },
+  "result_summary": {
+    "outputs": [
+      {
+        "completion_tokens_actual": 480,
+        "hypothesis": {
+          "source": "tinyllama",
+          "summary": "Glass cities are cities that are built entirely out of glass, with no visible physical structure other than the glass walls and floors. The glass walls and floors provide a seamless and transparent appearance, allowing for a sense of transparency and connection between the city and its inhabitants.\n\nSelf-check notes:\n- What is the purpose of glass cities?\n- How do they achieve this seamless appearance?\n- What are the benefits of living in a glass city?\n- What are the drawbacks of living in a glass city?\n- What are some examples of glass cities?\n- What are some potential drawbacks of building a glass city?\n- What are some potential benefits of building a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in"
+        },
+        "outcome": "success",
+        "prompt_tokens_actual": 6,
+        "request_uuid": "269108ddfb7f3efaf4f8f06ce029cdd27c860dd901ef7db309f11a0c09e476cf",
+        "self_assessment": {
+          "confidence": 0.95,
+          "reason": "tinyllama_response"
+        },
+        "telemetry": {
+          "context_overflow_refusals": 0,
+          "dependency_evidence_refs": [
+            "models/server.logs/server.log1.md",
+            "tmp/slot_full_with_slots.json",
+            "tmp/slot_full_with_slots_timeseries.json"
+          ],
+          "health_snapshot": {
+            "failure_reason": null,
+            "is_available": true,
+            "latency_ms": 33,
+            "probed_at": 1769312619.015858,
+            "status_code": 200
+          },
+          "queue_wait_duration_ms": 0,
+          "slot_contention_events": 0,
+          "timeout_expirations": 0
+        }
+      }
+    ],
+    "status": "completed"
+  },
+  "tile_sequence": [
+    {
+      "inputs": [
+        "fact.conversation.turn"
+      ],
+      "outputs": [
+        "decision::fact.conversation.turn"
+      ],
+      "tile_id": "tile.lang.semantic_router"
+    },
+    {
+      "inputs": [
+        "fact.conversation.turn"
+      ],
+      "outputs": [
+        "hypothesis::fact.conversation.turn"
+      ],
+      "tile_id": "tile.lang.guided_hallucinator"
+    }
+  ]
+}

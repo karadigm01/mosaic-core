@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0
+rootdir: /home/j/Desktop/base.26
+collected 69 items
+
+tests/test_alert_panel_tile.py .                                         [  1%]
+tests/test_component_coverage_sync.py ..                                 [  4%]
+tests/test_component_registry_sync.py ...                                [  8%]
+tests/test_constraint_substrate.py ........                              [ 20%]
+tests/test_ledger_writer.py .                                            [ 21%]
+tests/test_pressure_historian_tile.py ...                                [ 26%]
+tests/test_pressure_summary_tile.py ......                               [ 34%]
+tests/test_proof_evaluator_tile.py ...                                   [ 39%]
+tests/test_resolver_multi_hop.py ..............                          [ 59%]
+tests/test_route_dispatch_tile.py ..                                     [ 62%]
+tests/test_schema_contracts.py ..............                            [ 82%]
+tests/test_semantic_router.py ..                                         [ 85%]
+tests/test_sentiment_tile.py ......                                      [ 94%]
+tests/test_tile_registry.py ....                                         [100%]
+
+============================== 69 passed in 0.20s ==============================
+

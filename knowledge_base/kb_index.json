@@ -1,0 +1,106 @@
+{
+  "last_updated": "2026-01-25T06:27:49Z",
+  "total_techniques": 12,
+  "total_bug_fixes": 0,
+  "total_innovations": 11,
+  "total_automation_patterns": 7,
+  "constraint_compliance_stats": {
+    "I1_compliant": 12,
+    "I2_compliant": 12,
+    "I3_compliant": 12,
+    "I4_compliant": 12,
+    "all_compliant": 12
+  },
+  "automation_success_metrics": {
+    "total_automated_actions": 54,
+    "successful_automations": 52,
+    "failed_automations": 1,
+    "success_rate": 0.963
+  },
+  "lookup_indices": {
+    "by_category": {
+      "architectural": [
+        "tech-0001",
+        "tech-0008",
+        "tech-0009",
+        "tech-0010"
+      ],
+      "documentation": [
+        "tech-0002",
+        "tech-0005",
+        "tech-0006",
+        "tech-0012"
+      ],
+      "process": [
+        "tech-0007"
+      ],
+      "testing": [
+        "tech-0003",
+        "tech-0011"
+      ],
+      "automation": [
+        "tech-0004"
+      ]
+    },
+    "by_constraint": {
+      "I1": [
+        "tech-0001",
+        "tech-0002",
+        "tech-0003",
+        "tech-0004",
+        "tech-0005",
+        "tech-0006",
+        "tech-0007",
+        "tech-0008",
+        "tech-0009",
+        "tech-0010",
+        "tech-0011",
+        "tech-0012"
+      ],
+      "I2": [
+        "tech-0001",
+        "tech-0002",
+        "tech-0003",
+        "tech-0004",
+        "tech-0005",
+        "tech-0006",
+        "tech-0007",
+        "tech-0008",
+        "tech-0009",
+        "tech-0010",
+        "tech-0011",
+        "tech-0012"
+      ],
+      "I3": [
+        "tech-0001",
+        "tech-0002",
+        "tech-0003",
+        "tech-0004",
+        "tech-0005",
+        "tech-0006",
+        "tech-0007",
+        "tech-0008",
+        "tech-0009",
+        "tech-0010",
+        "tech-0011",
+        "tech-0012"
+      ],
+      "I4": [
+        "tech-0001",
+        "tech-0002",
+        "tech-0003",
+        "tech-0004",
+        "tech-0005",
+        "tech-0006",
+        "tech-0007",
+        "tech-0008",
+        "tech-0009",
+        "tech-0010",
+        "tech-0011",
+        "tech-0012"
+      ]
+    },
+    "by_error_code": {},
+    "by_automation_type": {}
+  }
+}

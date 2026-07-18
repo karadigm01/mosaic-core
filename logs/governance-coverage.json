@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-02-21T05:27:42Z",
+  "files": [
+    "SYSTEM_STATUS.md",
+    "SYSTEM_SUMMARY.md",
+    "ai_docs/audit_ledger_schema.json",
+    "ai_docs/audit_query_api.json",
+    "ai_docs/component_index.json",
+    "ai_docs/example_tiles.json",
+    "ai_docs/presentation_renderer_profiles.json",
+    "ai_docs/sample_tile_promotion.json",
+    "ai_docs/sandbox_automation_protocol.json",
+    "ai_docs/sandbox_test_suite.json",
+    "ai_docs/substrate_contracts.json",
+    "ai_docs/tile_lifecycle_protocol.json",
+    "knowledge_base/automation_runs/index.json",
+    "knowledge_base/kb_index.json"
+  ]
+}

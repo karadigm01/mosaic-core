@@ -1,0 +1,41 @@
+{
+  "command_result": {
+    "command": "pytest tests/test_resolver_multi_hop.py::test_resolver_emits_alert_panel_view_on_pressure",
+    "return_code": 0,
+    "stderr": "",
+    "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0\nrootdir: /home/j/Desktop/base.26\ncollected 1 item\n\ntests/test_resolver_multi_hop.py .                                       [100%]\n\n=============================== warnings summary ===============================\ntests/test_resolver_multi_hop.py:541\n  /home/j/Desktop/base.26/tests/test_resolver_multi_hop.py:541: PytestUnknownMarkWarning: Unknown pytest.mark.integration - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html\n    @pytest.mark.integration\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n========================= 1 passed, 1 warning in 0.03s =========================",
+    "stdout_json": null
+  },
+  "health_snapshot": {
+    "failure_reason": null,
+    "is_available": true,
+    "latency_ms": 0,
+    "probed_at": 1769322403.5192387,
+    "status_code": 200
+  },
+  "scenario": {
+    "demo": {
+      "arguments": [
+        "tests/test_resolver_multi_hop.py::test_resolver_emits_alert_panel_view_on_pressure"
+      ],
+      "entry_point": "pytest"
+    },
+    "description": "Uses constrained CPU budgets to trigger resolver pressure telemetry and ensure alert panels are emitted.",
+    "expected_outputs": {
+      "goal": "route.dispatch",
+      "telemetry": [
+        "pressure_alert",
+        "pressure_history",
+        "ledger_metadata.pressure_signal"
+      ],
+      "tiles": [
+        "tile.lang.semantic_router",
+        "tile.reasoning.route_dispatch"
+      ]
+    },
+    "id": "scenario.pressure_alert",
+    "name": "Pressure Alert Escalation"
+  },
+  "scenario_id": "scenario.pressure_alert",
+  "timestamp": "2026-01-25T06:26:43Z"
+}

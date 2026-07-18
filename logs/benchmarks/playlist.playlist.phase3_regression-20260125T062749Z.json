@@ -1,0 +1,412 @@
+{
+  "aggregate_metrics": {
+    "failures": 0,
+    "scenario_count": 3,
+    "tinyllama_latency_max_ms": 41,
+    "tinyllama_latency_min_ms": 0,
+    "total_duration_seconds": 31
+  },
+  "playlist": {
+    "description": "Extended playlist that stitches TinyLLaMA demos with ledger-driven pytest targets to stress dashboard diffs.",
+    "diff_targets": {
+      "aggregate_metrics": [
+        "failures",
+        "tinyllama_latency_min_ms",
+        "tinyllama_latency_max_ms",
+        "total_duration_seconds"
+      ],
+      "scenario_fields": [
+        "command_result.return_code",
+        "health_snapshot.latency_ms",
+        "presentation.view_counts"
+      ]
+    },
+    "evidence_tags": [
+      "phase3",
+      "benchmark.playlist",
+      "regression"
+    ],
+    "id": "playlist.phase3_regression",
+    "name": "Phase 3 Regression",
+    "pytest_targets": [
+      "tests/test_guided_hallucinator_tile.py::test_hallucinator_emits_snapshot",
+      "tests/test_component_coverage_sync.py::test_dashboard_fields_present"
+    ],
+    "scenario_sequence": [
+      "scenario.hallucinator_imagination",
+      "scenario.sentiment_chain",
+      "scenario.pressure_alert"
+    ],
+    "success_criteria": [
+      "Runner emits playlist_diffs.scenario_regressions when latency exceeds threshold",
+      "Dashboard view_counts reflect every required presentation view",
+      "Knowledge base automation metrics stay aligned with automation_runs index"
+    ],
+    "telemetry_expectations": {
+      "max_allowed_latency_regression_ms": 5,
+      "required_views": [
+        "pressure_alert",
+        "pressure_history",
+        "hallucinator_hypothesis"
+      ],
+      "tinyllama_latency_window_ms": 50
+    }
+  },
+  "playlist_diffs": {
+    "aggregate_delta": {},
+    "baseline_artifact": null,
+    "scenario_regressions": []
+  },
+  "playlist_id": "playlist.phase3_regression",
+  "scenario_results": [
+    {
+      "artifact_path": "logs/benchmarks/scenario.hallucinator_imagination-20260125T062748Z.json",
+      "command_result": {
+        "command": "/home/j/Desktop/base.26/.venv/bin/python -m main --demo imagination --prompt Imagine a hypothesis about glass cities.",
+        "return_code": 0,
+        "stderr": "",
+        "stdout": "{\n  \"capability_bindings\": [],\n  \"chain_quality\": {\n    \"metrics\": {\n      \"alert_count\": 0.0,\n      \"hop_count\": 0.0,\n      \"pressure_ratio\": 0.0,\n      \"proof_id\": \"proof::demo.hallucinator::resolver\",\n      \"status\": \"rejected\",\n      \"ttl_seconds\": 900\n    },\n    \"penalties\": {\n      \"status_penalty\": 0.2\n    },\n    \"proof_id\": \"proof::demo.hallucinator::resolver\",\n    \"score\": 0.8,\n    \"tier\": \"high\"\n  },\n  \"presentation_views\": [\n    {\n      \"audit_hash\": \"hash://sha256/ca1419d24da9c4dc3985d48546b83f4e166d2c21d279998fd1dcf38d3f2cc92a\",\n      \"fact_id\": \"meta.chain_quality::proof::demo.hallucinator::resolver\",\n      \"proof_id\": \"proof::demo.hallucinator::resolver\",\n      \"score\": 0.8,\n      \"tier\": \"high\",\n      \"type\": \"chain_quality\"\n    }\n  ],\n  \"pressure_state\": null,\n  \"proof_id\": \"proof::demo.hallucinator::resolver\",\n  \"resource_usage\": {\n    \"chain_quality\": {\n      \"metrics\": {\n        \"alert_count\": 0.0,\n        \"hop_count\": 0.0,\n        \"pressure_ratio\": 0.0,\n        \"proof_id\": \"proof::demo.hallucinator::resolver\",\n        \"status\": \"rejected\",\n        \"ttl_seconds\": 900\n      },\n      \"penalties\": {\n        \"status_penalty\": 0.2\n      },\n      \"proof_id\": \"proof::demo.hallucinator::resolver\",\n      \"score\": 0.8,\n      \"tier\": \"high\"\n    }\n  },\n  \"result_summary\": {\n    \"error_code\": \"resolver_error\",\n    \"reason\": \"timed out\",\n    \"status\": \"rejected\"\n  },\n  \"tile_sequence\": []\n}",
+        "stdout_json": {
+          "capability_bindings": [],
+          "chain_quality": {
+            "metrics": {
+              "alert_count": 0.0,
+              "hop_count": 0.0,
+              "pressure_ratio": 0.0,
+              "proof_id": "proof::demo.hallucinator::resolver",
+              "status": "rejected",
+              "ttl_seconds": 900
+            },
+            "penalties": {
+              "status_penalty": 0.2
+            },
+            "proof_id": "proof::demo.hallucinator::resolver",
+            "score": 0.8,
+            "tier": "high"
+          },
+          "presentation_views": [
+            {
+              "audit_hash": "hash://sha256/ca1419d24da9c4dc3985d48546b83f4e166d2c21d279998fd1dcf38d3f2cc92a",
+              "fact_id": "meta.chain_quality::proof::demo.hallucinator::resolver",
+              "proof_id": "proof::demo.hallucinator::resolver",
+              "score": 0.8,
+              "tier": "high",
+              "type": "chain_quality"
+            }
+          ],
+          "pressure_state": null,
+          "proof_id": "proof::demo.hallucinator::resolver",
+          "resource_usage": {
+            "chain_quality": {
+              "metrics": {
+                "alert_count": 0.0,
+                "hop_count": 0.0,
+                "pressure_ratio": 0.0,
+                "proof_id": "proof::demo.hallucinator::resolver",
+                "status": "rejected",
+                "ttl_seconds": 900
+              },
+              "penalties": {
+                "status_penalty": 0.2
+              },
+              "proof_id": "proof::demo.hallucinator::resolver",
+              "score": 0.8,
+              "tier": "high"
+            }
+          },
+          "result_summary": {
+            "error_code": "resolver_error",
+            "reason": "timed out",
+            "status": "rejected"
+          },
+          "tile_sequence": []
+        }
+      },
+      "health_snapshot": {
+        "failure_reason": null,
+        "is_available": true,
+        "latency_ms": 41,
+        "probed_at": 1769322438.6746247,
+        "status_code": 200
+      },
+      "run_id": "auto-0007-run-scenario.hallucinator_imagination-20260125T062748Z",
+      "scenario": {
+        "demo": {
+          "arguments": [
+            "--demo",
+            "imagination",
+            "--prompt",
+            "Imagine a hypothesis about glass cities."
+          ],
+          "entry_point": "main"
+        },
+        "description": "Routes a conversation turn to the guided hallucinator to capture hypotheses and TinyLLaMA health telemetry.",
+        "expected_outputs": {
+          "goal": "conversation.hypothesis",
+          "telemetry": [
+            "hallucinator_snapshot",
+            "tinyllama_health_snapshot"
+          ],
+          "tiles": [
+            "tile.lang.semantic_router",
+            "tile.lang.guided_hallucinator"
+          ]
+        },
+        "id": "scenario.hallucinator_imagination",
+        "name": "TinyLLaMA Imagination"
+      },
+      "scenario_id": "scenario.hallucinator_imagination",
+      "timestamp": "2026-01-25T06:27:48Z"
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.sentiment_chain-20260125T062749Z.json",
+      "command_result": {
+        "command": "/home/j/Desktop/base.26/.venv/bin/python -m main --demo sentiment",
+        "return_code": 0,
+        "stderr": "",
+        "stdout": "{\n  \"capability_bindings\": [\n    {\n      \"capability_id\": \"text.sentiment\",\n      \"tile_id\": \"tile.cognition.sentiment\"\n    },\n    {\n      \"capability_id\": \"conversation.route\",\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"capability_id\": \"route.dispatch\",\n      \"tile_id\": \"tile.reasoning.route_dispatch\"\n    },\n    {\n      \"capability_id\": \"pressure.summary\",\n      \"tile_id\": \"tile.reasoning.pressure_summary\"\n    }\n  ],\n  \"chain_quality\": {\n    \"metrics\": {\n      \"alert_count\": 0.0,\n      \"hop_count\": 4.0,\n      \"pressure_ratio\": 0.6,\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"status\": \"completed\",\n      \"ttl_seconds\": 900\n    },\n    \"penalties\": {\n      \"hop_penalty\": 0.2\n    },\n    \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n    \"score\": 0.8,\n    \"tier\": \"high\"\n  },\n  \"presentation_views\": [\n    {\n      \"audit_hash\": \"hash://sha256/54c6c3750f96107d8dc00e98e29451d915a78b7816934a6a1808ed4afd24fab3\",\n      \"fact_id\": \"meta.chain_quality::proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"score\": 0.8,\n      \"tier\": \"high\",\n      \"type\": \"chain_quality\"\n    }\n  ],\n  \"pressure_state\": {\n    \"ratio\": 0.6,\n    \"status\": \"within_budget\"\n  },\n  \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n  \"resource_usage\": {\n    \"chain_quality\": {\n      \"metrics\": {\n        \"alert_count\": 0.0,\n        \"hop_count\": 4.0,\n        \"pressure_ratio\": 0.6,\n        \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n        \"status\": \"completed\",\n        \"ttl_seconds\": 900\n      },\n      \"penalties\": {\n        \"hop_penalty\": 0.2\n      },\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"score\": 0.8,\n      \"tier\": \"high\"\n    },\n    \"hop_metrics\": [\n      {\n        \"hop\": 0,\n        \"tile_id\": \"tile.cognition.sentiment\",\n        \"work_metrics\": {\n          \"lexicon_hits\": 2.0,\n          \"operation_units\": 9.0,\n          \"token_count\": 5.0\n        }\n      },\n      {\n        \"hop\": 1,\n        \"tile_id\": \"tile.lang.semantic_router\",\n        \"work_metrics\": {\n          \"input_tokens\": 5.0,\n          \"operation_units\": 12.0,\n          \"route_checks\": 7.0\n        }\n      },\n      {\n        \"hop\": 2,\n        \"tile_id\": \"tile.reasoning.route_dispatch\",\n        \"work_metrics\": {\n          \"dispatch_latency_ms\": 5.0,\n          \"operation_units\": 2.0,\n          \"route_fanout\": 1.0\n        }\n      },\n      {\n        \"hop\": 3,\n        \"tile_id\": \"tile.reasoning.pressure_summary\",\n        \"work_metrics\": {\n          \"alert_count\": 1.0,\n          \"severe_count\": 0.0\n        }\n      }\n    ],\n    \"pressure_state\": {\n      \"ratio\": 0.6,\n      \"status\": \"within_budget\"\n    }\n  },\n  \"result_summary\": {\n    \"outputs\": [\n      {\n        \"alert_count\": 1,\n        \"severe\": 0,\n        \"warnings\": 0\n      }\n    ],\n    \"status\": \"completed\"\n  },\n  \"tile_sequence\": [\n    {\n      \"inputs\": [\n        \"fact.user_text\"\n      ],\n      \"outputs\": [\n        \"sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.cognition.sentiment\"\n    },\n    {\n      \"inputs\": [\n        \"sentiment::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"decision::sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"inputs\": [\n        \"decision::sentiment::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"pressure.alert_batch::decision::sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.reasoning.route_dispatch\"\n    },\n    {\n      \"inputs\": [\n        \"pressure.alert_batch::decision::sentiment::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"pressure.summary::pressure.alert_batch::decision::sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.reasoning.pressure_summary\"\n    }\n  ]\n}",
+        "stdout_json": {
+          "capability_bindings": [
+            {
+              "capability_id": "text.sentiment",
+              "tile_id": "tile.cognition.sentiment"
+            },
+            {
+              "capability_id": "conversation.route",
+              "tile_id": "tile.lang.semantic_router"
+            },
+            {
+              "capability_id": "route.dispatch",
+              "tile_id": "tile.reasoning.route_dispatch"
+            },
+            {
+              "capability_id": "pressure.summary",
+              "tile_id": "tile.reasoning.pressure_summary"
+            }
+          ],
+          "chain_quality": {
+            "metrics": {
+              "alert_count": 0.0,
+              "hop_count": 4.0,
+              "pressure_ratio": 0.6,
+              "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "status": "completed",
+              "ttl_seconds": 900
+            },
+            "penalties": {
+              "hop_penalty": 0.2
+            },
+            "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+            "score": 0.8,
+            "tier": "high"
+          },
+          "presentation_views": [
+            {
+              "audit_hash": "hash://sha256/54c6c3750f96107d8dc00e98e29451d915a78b7816934a6a1808ed4afd24fab3",
+              "fact_id": "meta.chain_quality::proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "score": 0.8,
+              "tier": "high",
+              "type": "chain_quality"
+            }
+          ],
+          "pressure_state": {
+            "ratio": 0.6,
+            "status": "within_budget"
+          },
+          "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "resource_usage": {
+            "chain_quality": {
+              "metrics": {
+                "alert_count": 0.0,
+                "hop_count": 4.0,
+                "pressure_ratio": 0.6,
+                "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+                "status": "completed",
+                "ttl_seconds": 900
+              },
+              "penalties": {
+                "hop_penalty": 0.2
+              },
+              "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "score": 0.8,
+              "tier": "high"
+            },
+            "hop_metrics": [
+              {
+                "hop": 0,
+                "tile_id": "tile.cognition.sentiment",
+                "work_metrics": {
+                  "lexicon_hits": 2.0,
+                  "operation_units": 9.0,
+                  "token_count": 5.0
+                }
+              },
+              {
+                "hop": 1,
+                "tile_id": "tile.lang.semantic_router",
+                "work_metrics": {
+                  "input_tokens": 5.0,
+                  "operation_units": 12.0,
+                  "route_checks": 7.0
+                }
+              },
+              {
+                "hop": 2,
+                "tile_id": "tile.reasoning.route_dispatch",
+                "work_metrics": {
+                  "dispatch_latency_ms": 5.0,
+                  "operation_units": 2.0,
+                  "route_fanout": 1.0
+                }
+              },
+              {
+                "hop": 3,
+                "tile_id": "tile.reasoning.pressure_summary",
+                "work_metrics": {
+                  "alert_count": 1.0,
+                  "severe_count": 0.0
+                }
+              }
+            ],
+            "pressure_state": {
+              "ratio": 0.6,
+              "status": "within_budget"
+            }
+          },
+          "result_summary": {
+            "outputs": [
+              {
+                "alert_count": 1,
+                "severe": 0,
+                "warnings": 0
+              }
+            ],
+            "status": "completed"
+          },
+          "tile_sequence": [
+            {
+              "inputs": [
+                "fact.user_text"
+              ],
+              "outputs": [
+                "sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.cognition.sentiment"
+            },
+            {
+              "inputs": [
+                "sentiment::fact.user_text"
+              ],
+              "outputs": [
+                "decision::sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.lang.semantic_router"
+            },
+            {
+              "inputs": [
+                "decision::sentiment::fact.user_text"
+              ],
+              "outputs": [
+                "pressure.alert_batch::decision::sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.reasoning.route_dispatch"
+            },
+            {
+              "inputs": [
+                "pressure.alert_batch::decision::sentiment::fact.user_text"
+              ],
+              "outputs": [
+                "pressure.summary::pressure.alert_batch::decision::sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.reasoning.pressure_summary"
+            }
+          ]
+        }
+      },
+      "health_snapshot": {
+        "failure_reason": null,
+        "is_available": true,
+        "latency_ms": 1,
+        "probed_at": 1769322468.8988614,
+        "status_code": 200
+      },
+      "run_id": "auto-0007-run-scenario.sentiment_chain-20260125T062749Z",
+      "scenario": {
+        "demo": {
+          "arguments": [
+            "--demo",
+            "sentiment"
+          ],
+          "entry_point": "main",
+          "inputs": {
+            "user_text": "I hate waiting for support"
+          }
+        },
+        "description": "Runs user text through Sentiment -> Semantic Router -> Route Dispatch to verify cognition coverage.",
+        "expected_outputs": {
+          "goal": "pressure.summary",
+          "tiles": [
+            "tile.lang.sentiment",
+            "tile.lang.semantic_router",
+            "tile.reasoning.route_dispatch",
+            "tile.presentation.pressure_summary"
+          ]
+        },
+        "id": "scenario.sentiment_chain",
+        "name": "Sentiment Support Chain",
+        "telemetry_requirements": [
+          "proof.result_summary",
+          "proof.resource_usage.pressure_state",
+          "presentation_views"
+        ]
+      },
+      "scenario_id": "scenario.sentiment_chain",
+      "timestamp": "2026-01-25T06:27:49Z"
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.pressure_alert-20260125T062749Z.json",
+      "command_result": {
+        "command": "pytest tests/test_resolver_multi_hop.py::test_resolver_emits_alert_panel_view_on_pressure",
+        "return_code": 0,
+        "stderr": "",
+        "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0\nrootdir: /home/j/Desktop/base.26\ncollected 1 item\n\ntests/test_resolver_multi_hop.py .                                       [100%]\n\n=============================== warnings summary ===============================\ntests/test_resolver_multi_hop.py:541\n  /home/j/Desktop/base.26/tests/test_resolver_multi_hop.py:541: PytestUnknownMarkWarning: Unknown pytest.mark.integration - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html\n    @pytest.mark.integration\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n========================= 1 passed, 1 warning in 0.04s =========================",
+        "stdout_json": null
+      },
+      "health_snapshot": {
+        "failure_reason": null,
+        "is_available": true,
+        "latency_ms": 0,
+        "probed_at": 1769322469.0641294,
+        "status_code": 200
+      },
+      "run_id": "auto-0007-run-scenario.pressure_alert-20260125T062749Z",
+      "scenario": {
+        "demo": {
+          "arguments": [
+            "tests/test_resolver_multi_hop.py::test_resolver_emits_alert_panel_view_on_pressure"
+          ],
+          "entry_point": "pytest"
+        },
+        "description": "Uses constrained CPU budgets to trigger resolver pressure telemetry and ensure alert panels are emitted.",
+        "expected_outputs": {
+          "goal": "route.dispatch",
+          "telemetry": [
+            "pressure_alert",
+            "pressure_history",
+            "ledger_metadata.pressure_signal"
+          ],
+          "tiles": [
+            "tile.lang.semantic_router",
+            "tile.reasoning.route_dispatch"
+          ]
+        },
+        "id": "scenario.pressure_alert",
+        "name": "Pressure Alert Escalation"
+      },
+      "scenario_id": "scenario.pressure_alert",
+      "timestamp": "2026-01-25T06:27:49Z"
+    }
+  ],
+  "timestamp": "2026-01-25T06:27:49Z"
+}

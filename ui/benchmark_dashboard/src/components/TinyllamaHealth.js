@@ -1,0 +1,4 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+export function TinyllamaHealth({ snapshot }) {
+    return (_jsxs("section", { className: "card", children: [_jsx("h2", { children: "TinyLLaMA Health" }), snapshot ? (_jsxs("div", { className: "stats-grid", children: [_jsxs("div", { className: "stat", children: [_jsx("div", { className: "stat-label", children: "Status Code" }), _jsx("div", { className: "stat-value", children: snapshot.status_code ?? '—' })] }), _jsxs("div", { className: "stat", children: [_jsx("div", { className: "stat-label", children: "Latency (ms)" }), _jsx("div", { className: "stat-value", children: snapshot.latency_ms ?? '—' })] }), _jsxs("div", { className: "stat", children: [_jsx("div", { className: "stat-label", children: "Failure Reason" }), _jsx("div", { className: "stat-value", children: snapshot.failure_reason ?? 'none' })] })] })) : (_jsx("p", { children: "No health snapshot recorded." }))] }));
+}

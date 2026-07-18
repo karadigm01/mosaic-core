@@ -1,0 +1,567 @@
+{
+  "aggregate_metrics": {
+    "failures": 0,
+    "scenario_count": 3,
+    "tinyllama_latency_max_ms": 152,
+    "tinyllama_latency_min_ms": 0,
+    "total_duration_seconds": 15
+  },
+  "playlist": {
+    "description": "Sequentially runs the sentiment, hallucinator, and pressure-alert scenarios to produce a single evidence bundle.",
+    "diff_targets": {
+      "aggregate_metrics": [
+        "failures",
+        "tinyllama_latency_max_ms",
+        "total_duration_seconds"
+      ],
+      "scenario_fields": [
+        "command_result.return_code",
+        "health_snapshot.latency_ms"
+      ]
+    },
+    "evidence_tags": [
+      "phase2",
+      "benchmark.playlist"
+    ],
+    "id": "playlist.phase2_seed",
+    "name": "Phase 2 Seed Playlist",
+    "pytest_targets": [],
+    "scenario_sequence": [
+      "scenario.sentiment_chain",
+      "scenario.hallucinator_imagination",
+      "scenario.pressure_alert"
+    ],
+    "success_criteria": [
+      "All scenario return codes equal 0",
+      "Playlist artifact contains diffs and TinyLLaMA telemetry"
+    ]
+  },
+  "playlist_diffs": {
+    "aggregate_delta": {
+      "failures": 0,
+      "tinyllama_latency_max_ms": 92,
+      "tinyllama_latency_min_ms": 0,
+      "total_duration_seconds": -17
+    },
+    "baseline_artifact": "logs/benchmarks/playlist.playlist.phase2_seed-20260125T043239Z.json",
+    "scenario_regressions": [
+      {
+        "current_return_code": 0,
+        "latency_delta_ms": 92,
+        "previous_return_code": 0,
+        "scenario_id": "scenario.sentiment_chain"
+      },
+      {
+        "current_return_code": 0,
+        "latency_delta_ms": -9,
+        "previous_return_code": 0,
+        "scenario_id": "scenario.pressure_alert"
+      }
+    ]
+  },
+  "playlist_id": "playlist.phase2_seed",
+  "scenario_results": [
+    {
+      "artifact_path": "logs/benchmarks/scenario.sentiment_chain-20260125T043757Z.json",
+      "command_result": {
+        "command": "/home/j/Desktop/base.26/.venv/bin/python -m main --demo sentiment",
+        "return_code": 0,
+        "stderr": "",
+        "stdout": "{\n  \"capability_bindings\": [\n    {\n      \"capability_id\": \"text.sentiment\",\n      \"tile_id\": \"tile.cognition.sentiment\"\n    },\n    {\n      \"capability_id\": \"conversation.route\",\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"capability_id\": \"route.dispatch\",\n      \"tile_id\": \"tile.reasoning.route_dispatch\"\n    },\n    {\n      \"capability_id\": \"pressure.summary\",\n      \"tile_id\": \"tile.reasoning.pressure_summary\"\n    }\n  ],\n  \"chain_quality\": {\n    \"metrics\": {\n      \"alert_count\": 0.0,\n      \"hop_count\": 4.0,\n      \"pressure_ratio\": 0.6,\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"status\": \"completed\",\n      \"ttl_seconds\": 900\n    },\n    \"penalties\": {\n      \"hop_penalty\": 0.2\n    },\n    \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n    \"score\": 0.8,\n    \"tier\": \"high\"\n  },\n  \"presentation_views\": [\n    {\n      \"audit_hash\": \"hash://sha256/54c6c3750f96107d8dc00e98e29451d915a78b7816934a6a1808ed4afd24fab3\",\n      \"fact_id\": \"meta.chain_quality::proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"score\": 0.8,\n      \"tier\": \"high\",\n      \"type\": \"chain_quality\"\n    }\n  ],\n  \"pressure_state\": {\n    \"ratio\": 0.6,\n    \"status\": \"within_budget\"\n  },\n  \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n  \"resource_usage\": {\n    \"chain_quality\": {\n      \"metrics\": {\n        \"alert_count\": 0.0,\n        \"hop_count\": 4.0,\n        \"pressure_ratio\": 0.6,\n        \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n        \"status\": \"completed\",\n        \"ttl_seconds\": 900\n      },\n      \"penalties\": {\n        \"hop_penalty\": 0.2\n      },\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"score\": 0.8,\n      \"tier\": \"high\"\n    },\n    \"hop_metrics\": [\n      {\n        \"hop\": 0,\n        \"tile_id\": \"tile.cognition.sentiment\",\n        \"work_metrics\": {\n          \"lexicon_hits\": 2.0,\n          \"operation_units\": 9.0,\n          \"token_count\": 5.0\n        }\n      },\n      {\n        \"hop\": 1,\n        \"tile_id\": \"tile.lang.semantic_router\",\n        \"work_metrics\": {\n          \"input_tokens\": 5.0,\n          \"operation_units\": 12.0,\n          \"route_checks\": 7.0\n        }\n      },\n      {\n        \"hop\": 2,\n        \"tile_id\": \"tile.reasoning.route_dispatch\",\n        \"work_metrics\": {\n          \"dispatch_latency_ms\": 5.0,\n          \"operation_units\": 2.0,\n          \"route_fanout\": 1.0\n        }\n      },\n      {\n        \"hop\": 3,\n        \"tile_id\": \"tile.reasoning.pressure_summary\",\n        \"work_metrics\": {\n          \"alert_count\": 1.0,\n          \"severe_count\": 0.0\n        }\n      }\n    ],\n    \"pressure_state\": {\n      \"ratio\": 0.6,\n      \"status\": \"within_budget\"\n    }\n  },\n  \"result_summary\": {\n    \"outputs\": [\n      {\n        \"alert_count\": 1,\n        \"severe\": 0,\n        \"warnings\": 0\n      }\n    ],\n    \"status\": \"completed\"\n  },\n  \"tile_sequence\": [\n    {\n      \"inputs\": [\n        \"fact.user_text\"\n      ],\n      \"outputs\": [\n        \"sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.cognition.sentiment\"\n    },\n    {\n      \"inputs\": [\n        \"sentiment::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"decision::sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"inputs\": [\n        \"decision::sentiment::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"pressure.alert_batch::decision::sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.reasoning.route_dispatch\"\n    },\n    {\n      \"inputs\": [\n        \"pressure.alert_batch::decision::sentiment::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"pressure.summary::pressure.alert_batch::decision::sentiment::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.reasoning.pressure_summary\"\n    }\n  ]\n}",
+        "stdout_json": {
+          "capability_bindings": [
+            {
+              "capability_id": "text.sentiment",
+              "tile_id": "tile.cognition.sentiment"
+            },
+            {
+              "capability_id": "conversation.route",
+              "tile_id": "tile.lang.semantic_router"
+            },
+            {
+              "capability_id": "route.dispatch",
+              "tile_id": "tile.reasoning.route_dispatch"
+            },
+            {
+              "capability_id": "pressure.summary",
+              "tile_id": "tile.reasoning.pressure_summary"
+            }
+          ],
+          "chain_quality": {
+            "metrics": {
+              "alert_count": 0.0,
+              "hop_count": 4.0,
+              "pressure_ratio": 0.6,
+              "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "status": "completed",
+              "ttl_seconds": 900
+            },
+            "penalties": {
+              "hop_penalty": 0.2
+            },
+            "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+            "score": 0.8,
+            "tier": "high"
+          },
+          "presentation_views": [
+            {
+              "audit_hash": "hash://sha256/54c6c3750f96107d8dc00e98e29451d915a78b7816934a6a1808ed4afd24fab3",
+              "fact_id": "meta.chain_quality::proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "score": 0.8,
+              "tier": "high",
+              "type": "chain_quality"
+            }
+          ],
+          "pressure_state": {
+            "ratio": 0.6,
+            "status": "within_budget"
+          },
+          "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "resource_usage": {
+            "chain_quality": {
+              "metrics": {
+                "alert_count": 0.0,
+                "hop_count": 4.0,
+                "pressure_ratio": 0.6,
+                "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+                "status": "completed",
+                "ttl_seconds": 900
+              },
+              "penalties": {
+                "hop_penalty": 0.2
+              },
+              "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+              "score": 0.8,
+              "tier": "high"
+            },
+            "hop_metrics": [
+              {
+                "hop": 0,
+                "tile_id": "tile.cognition.sentiment",
+                "work_metrics": {
+                  "lexicon_hits": 2.0,
+                  "operation_units": 9.0,
+                  "token_count": 5.0
+                }
+              },
+              {
+                "hop": 1,
+                "tile_id": "tile.lang.semantic_router",
+                "work_metrics": {
+                  "input_tokens": 5.0,
+                  "operation_units": 12.0,
+                  "route_checks": 7.0
+                }
+              },
+              {
+                "hop": 2,
+                "tile_id": "tile.reasoning.route_dispatch",
+                "work_metrics": {
+                  "dispatch_latency_ms": 5.0,
+                  "operation_units": 2.0,
+                  "route_fanout": 1.0
+                }
+              },
+              {
+                "hop": 3,
+                "tile_id": "tile.reasoning.pressure_summary",
+                "work_metrics": {
+                  "alert_count": 1.0,
+                  "severe_count": 0.0
+                }
+              }
+            ],
+            "pressure_state": {
+              "ratio": 0.6,
+              "status": "within_budget"
+            }
+          },
+          "result_summary": {
+            "outputs": [
+              {
+                "alert_count": 1,
+                "severe": 0,
+                "warnings": 0
+              }
+            ],
+            "status": "completed"
+          },
+          "tile_sequence": [
+            {
+              "inputs": [
+                "fact.user_text"
+              ],
+              "outputs": [
+                "sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.cognition.sentiment"
+            },
+            {
+              "inputs": [
+                "sentiment::fact.user_text"
+              ],
+              "outputs": [
+                "decision::sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.lang.semantic_router"
+            },
+            {
+              "inputs": [
+                "decision::sentiment::fact.user_text"
+              ],
+              "outputs": [
+                "pressure.alert_batch::decision::sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.reasoning.route_dispatch"
+            },
+            {
+              "inputs": [
+                "pressure.alert_batch::decision::sentiment::fact.user_text"
+              ],
+              "outputs": [
+                "pressure.summary::pressure.alert_batch::decision::sentiment::fact.user_text"
+              ],
+              "tile_id": "tile.reasoning.pressure_summary"
+            }
+          ]
+        }
+      },
+      "health_snapshot": {
+        "failure_reason": null,
+        "is_available": true,
+        "latency_ms": 152,
+        "probed_at": 1769315877.5962656,
+        "status_code": 200
+      },
+      "run_id": "auto-0007-run-scenario.sentiment_chain-20260125T043757Z",
+      "scenario": {
+        "demo": {
+          "arguments": [
+            "--demo",
+            "sentiment"
+          ],
+          "entry_point": "main",
+          "inputs": {
+            "user_text": "I hate waiting for support"
+          }
+        },
+        "description": "Runs user text through Sentiment -> Semantic Router -> Route Dispatch to verify cognition coverage.",
+        "expected_outputs": {
+          "goal": "pressure.summary",
+          "tiles": [
+            "tile.lang.sentiment",
+            "tile.lang.semantic_router",
+            "tile.reasoning.route_dispatch",
+            "tile.presentation.pressure_summary"
+          ]
+        },
+        "id": "scenario.sentiment_chain",
+        "name": "Sentiment Support Chain",
+        "telemetry_requirements": [
+          "proof.result_summary",
+          "proof.resource_usage.pressure_state",
+          "presentation_views"
+        ]
+      },
+      "scenario_id": "scenario.sentiment_chain",
+      "timestamp": "2026-01-25T04:37:57Z"
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.hallucinator_imagination-20260125T043812Z.json",
+      "command_result": {
+        "command": "/home/j/Desktop/base.26/.venv/bin/python -m main --demo imagination --prompt Imagine a hypothesis about glass cities.",
+        "return_code": 0,
+        "stderr": "",
+        "stdout": "{\n  \"capability_bindings\": [\n    {\n      \"capability_id\": \"conversation.route\",\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"capability_id\": \"conversation.imagination\",\n      \"tile_id\": \"tile.lang.guided_hallucinator\"\n    }\n  ],\n  \"chain_quality\": {\n    \"metrics\": {\n      \"alert_count\": 1.0,\n      \"hop_count\": 2.0,\n      \"pressure_ratio\": 16.2,\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"status\": \"completed\",\n      \"ttl_seconds\": 900\n    },\n    \"penalties\": {\n      \"alert_penalty\": 0.05,\n      \"hop_penalty\": 0.1,\n      \"pressure_penalty\": 0.5\n    },\n    \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n    \"score\": 0.35,\n    \"tier\": \"low\"\n  },\n  \"presentation_views\": [\n    {\n      \"audit_hash\": \"hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1\",\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"ratio\": 16.2,\n      \"severity\": \"severe\",\n      \"signal_id\": \"pressure::tile.lang.guided_hallucinator::operation_units\",\n      \"tile_id\": \"tile.lang.guided_hallucinator\",\n      \"type\": \"pressure_alert\"\n    },\n    {\n      \"audit_hash\": \"hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1\",\n      \"confidence\": 0.95,\n      \"fact_id\": \"hypothesis::fact.conversation.turn\",\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"summary\": \"Glass cities are cities that are built entirely out of glass, with no visible physical structure other than the glass walls and floors. The glass walls and floors provide a seamless and transparent appearance, allowing for a sense of transparency and connection between the city and its inhabitants.\\n\\nSelf-check notes:\\n- What is the purpose of glass cities?\\n- How do they achieve this seamless appearance?\\n- What are the benefits of living in a glass city?\\n- What are the drawbacks of living in a glass city?\\n- What are some examples of glass cities?\\n- What are some potential drawbacks of building a glass city?\\n- What are some potential benefits of building a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in\",\n      \"type\": \"hallucinator_hypothesis\"\n    },\n    {\n      \"alerts\": [\n        {\n          \"pressure_ratio\": 16.2,\n          \"severity\": \"severe\",\n          \"signal_id\": \"pressure::tile.lang.guided_hallucinator::operation_units\",\n          \"tile_id\": \"tile.lang.guided_hallucinator\"\n        }\n      ],\n      \"audit_hash\": \"hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1\",\n      \"fact_id\": \"fact.alert_panel::proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"type\": \"alert_panel\"\n    },\n    {\n      \"audit_hash\": \"hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1\",\n      \"fact_id\": \"meta.pressure_history::proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"trend\": \"critical\",\n      \"type\": \"pressure_history\"\n    },\n    {\n      \"audit_hash\": \"hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1\",\n      \"fact_id\": \"meta.chain_quality::proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"score\": 0.35,\n      \"tier\": \"low\",\n      \"type\": \"chain_quality\"\n    }\n  ],\n  \"pressure_state\": {\n    \"ratio\": 16.2,\n    \"severity\": \"severe\",\n    \"signal_id\": \"pressure::tile.lang.guided_hallucinator::operation_units\",\n    \"status\": \"pressure_detected\",\n    \"tile_id\": \"tile.lang.guided_hallucinator\"\n  },\n  \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n  \"resource_usage\": {\n    \"chain_quality\": {\n      \"metrics\": {\n        \"alert_count\": 1.0,\n        \"hop_count\": 2.0,\n        \"pressure_ratio\": 16.2,\n        \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n        \"status\": \"completed\",\n        \"ttl_seconds\": 900\n      },\n      \"penalties\": {\n        \"alert_penalty\": 0.05,\n        \"hop_penalty\": 0.1,\n        \"pressure_penalty\": 0.5\n      },\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"score\": 0.35,\n      \"tier\": \"low\"\n    },\n    \"hop_metrics\": [\n      {\n        \"hop\": 0,\n        \"tile_id\": \"tile.lang.semantic_router\",\n        \"work_metrics\": {\n          \"input_tokens\": 6.0,\n          \"operation_units\": 10.0,\n          \"route_checks\": 4.0\n        }\n      },\n      {\n        \"hop\": 1,\n        \"tile_id\": \"tile.lang.guided_hallucinator\",\n        \"work_metrics\": {\n          \"completion_tokens\": 480.0,\n          \"operation_units\": 486.0,\n          \"prompt_tokens\": 6.0,\n          \"queue_wait_duration_ms\": 0.0,\n          \"slot_contention_events\": 0.0,\n          \"timeout_expirations\": 0.0\n        }\n      }\n    ],\n    \"pressure_history\": {\n      \"max_ratio\": 16.2,\n      \"mean_ratio\": 16.2,\n      \"proof_id\": \"proof::demo.hallucinator::tile.lang.guided_hallucinator\",\n      \"severity_counts\": {\n        \"info\": 0,\n        \"severe\": 1,\n        \"warning\": 0\n      },\n      \"signal_count\": 1,\n      \"tile_occurrences\": {\n        \"tile.lang.guided_hallucinator\": 1\n      },\n      \"trend\": \"critical\"\n    },\n    \"pressure_state\": {\n      \"ratio\": 16.2,\n      \"severity\": \"severe\",\n      \"signal_id\": \"pressure::tile.lang.guided_hallucinator::operation_units\",\n      \"status\": \"pressure_detected\",\n      \"tile_id\": \"tile.lang.guided_hallucinator\"\n    }\n  },\n  \"result_summary\": {\n    \"outputs\": [\n      {\n        \"completion_tokens_actual\": 480,\n        \"hypothesis\": {\n          \"source\": \"tinyllama\",\n          \"summary\": \"Glass cities are cities that are built entirely out of glass, with no visible physical structure other than the glass walls and floors. The glass walls and floors provide a seamless and transparent appearance, allowing for a sense of transparency and connection between the city and its inhabitants.\\n\\nSelf-check notes:\\n- What is the purpose of glass cities?\\n- How do they achieve this seamless appearance?\\n- What are the benefits of living in a glass city?\\n- What are the drawbacks of living in a glass city?\\n- What are some examples of glass cities?\\n- What are some potential drawbacks of building a glass city?\\n- What are some potential benefits of building a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in a glass city?\\n- What are some potential drawbacks of living in a glass city?\\n- What are some potential benefits of living in\"\n        },\n        \"outcome\": \"success\",\n        \"prompt_tokens_actual\": 6,\n        \"request_uuid\": \"269108ddfb7f3efaf4f8f06ce029cdd27c860dd901ef7db309f11a0c09e476cf\",\n        \"self_assessment\": {\n          \"confidence\": 0.95,\n          \"reason\": \"tinyllama_response\"\n        },\n        \"telemetry\": {\n          \"context_overflow_refusals\": 0,\n          \"dependency_evidence_refs\": [\n            \"models/server.logs/server.log1.md\",\n            \"tmp/slot_full_with_slots.json\",\n            \"tmp/slot_full_with_slots_timeseries.json\"\n          ],\n          \"health_snapshot\": {\n            \"failure_reason\": null,\n            \"is_available\": true,\n            \"latency_ms\": 39,\n            \"probed_at\": 1769315877.8823671,\n            \"status_code\": 200\n          },\n          \"queue_wait_duration_ms\": 0,\n          \"slot_contention_events\": 0,\n          \"timeout_expirations\": 0\n        }\n      }\n    ],\n    \"status\": \"completed\"\n  },\n  \"tile_sequence\": [\n    {\n      \"inputs\": [\n        \"fact.conversation.turn\"\n      ],\n      \"outputs\": [\n        \"decision::fact.conversation.turn\"\n      ],\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"inputs\": [\n        \"fact.conversation.turn\"\n      ],\n      \"outputs\": [\n        \"hypothesis::fact.conversation.turn\"\n      ],\n      \"tile_id\": \"tile.lang.guided_hallucinator\"\n    }\n  ]\n}",
+        "stdout_json": {
+          "capability_bindings": [
+            {
+              "capability_id": "conversation.route",
+              "tile_id": "tile.lang.semantic_router"
+            },
+            {
+              "capability_id": "conversation.imagination",
+              "tile_id": "tile.lang.guided_hallucinator"
+            }
+          ],
+          "chain_quality": {
+            "metrics": {
+              "alert_count": 1.0,
+              "hop_count": 2.0,
+              "pressure_ratio": 16.2,
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "status": "completed",
+              "ttl_seconds": 900
+            },
+            "penalties": {
+              "alert_penalty": 0.05,
+              "hop_penalty": 0.1,
+              "pressure_penalty": 0.5
+            },
+            "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+            "score": 0.35,
+            "tier": "low"
+          },
+          "presentation_views": [
+            {
+              "audit_hash": "hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1",
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "ratio": 16.2,
+              "severity": "severe",
+              "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+              "tile_id": "tile.lang.guided_hallucinator",
+              "type": "pressure_alert"
+            },
+            {
+              "audit_hash": "hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1",
+              "confidence": 0.95,
+              "fact_id": "hypothesis::fact.conversation.turn",
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "summary": "Glass cities are cities that are built entirely out of glass, with no visible physical structure other than the glass walls and floors. The glass walls and floors provide a seamless and transparent appearance, allowing for a sense of transparency and connection between the city and its inhabitants.\n\nSelf-check notes:\n- What is the purpose of glass cities?\n- How do they achieve this seamless appearance?\n- What are the benefits of living in a glass city?\n- What are the drawbacks of living in a glass city?\n- What are some examples of glass cities?\n- What are some potential drawbacks of building a glass city?\n- What are some potential benefits of building a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in",
+              "type": "hallucinator_hypothesis"
+            },
+            {
+              "alerts": [
+                {
+                  "pressure_ratio": 16.2,
+                  "severity": "severe",
+                  "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+                  "tile_id": "tile.lang.guided_hallucinator"
+                }
+              ],
+              "audit_hash": "hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1",
+              "fact_id": "fact.alert_panel::proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "type": "alert_panel"
+            },
+            {
+              "audit_hash": "hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1",
+              "fact_id": "meta.pressure_history::proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "trend": "critical",
+              "type": "pressure_history"
+            },
+            {
+              "audit_hash": "hash://sha256/a5582055fba870b06c13d557c4b227df0575c314e0041bd4217dd216251188f1",
+              "fact_id": "meta.chain_quality::proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "score": 0.35,
+              "tier": "low",
+              "type": "chain_quality"
+            }
+          ],
+          "pressure_state": {
+            "ratio": 16.2,
+            "severity": "severe",
+            "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+            "status": "pressure_detected",
+            "tile_id": "tile.lang.guided_hallucinator"
+          },
+          "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+          "resource_usage": {
+            "chain_quality": {
+              "metrics": {
+                "alert_count": 1.0,
+                "hop_count": 2.0,
+                "pressure_ratio": 16.2,
+                "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+                "status": "completed",
+                "ttl_seconds": 900
+              },
+              "penalties": {
+                "alert_penalty": 0.05,
+                "hop_penalty": 0.1,
+                "pressure_penalty": 0.5
+              },
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "score": 0.35,
+              "tier": "low"
+            },
+            "hop_metrics": [
+              {
+                "hop": 0,
+                "tile_id": "tile.lang.semantic_router",
+                "work_metrics": {
+                  "input_tokens": 6.0,
+                  "operation_units": 10.0,
+                  "route_checks": 4.0
+                }
+              },
+              {
+                "hop": 1,
+                "tile_id": "tile.lang.guided_hallucinator",
+                "work_metrics": {
+                  "completion_tokens": 480.0,
+                  "operation_units": 486.0,
+                  "prompt_tokens": 6.0,
+                  "queue_wait_duration_ms": 0.0,
+                  "slot_contention_events": 0.0,
+                  "timeout_expirations": 0.0
+                }
+              }
+            ],
+            "pressure_history": {
+              "max_ratio": 16.2,
+              "mean_ratio": 16.2,
+              "proof_id": "proof::demo.hallucinator::tile.lang.guided_hallucinator",
+              "severity_counts": {
+                "info": 0,
+                "severe": 1,
+                "warning": 0
+              },
+              "signal_count": 1,
+              "tile_occurrences": {
+                "tile.lang.guided_hallucinator": 1
+              },
+              "trend": "critical"
+            },
+            "pressure_state": {
+              "ratio": 16.2,
+              "severity": "severe",
+              "signal_id": "pressure::tile.lang.guided_hallucinator::operation_units",
+              "status": "pressure_detected",
+              "tile_id": "tile.lang.guided_hallucinator"
+            }
+          },
+          "result_summary": {
+            "outputs": [
+              {
+                "completion_tokens_actual": 480,
+                "hypothesis": {
+                  "source": "tinyllama",
+                  "summary": "Glass cities are cities that are built entirely out of glass, with no visible physical structure other than the glass walls and floors. The glass walls and floors provide a seamless and transparent appearance, allowing for a sense of transparency and connection between the city and its inhabitants.\n\nSelf-check notes:\n- What is the purpose of glass cities?\n- How do they achieve this seamless appearance?\n- What are the benefits of living in a glass city?\n- What are the drawbacks of living in a glass city?\n- What are some examples of glass cities?\n- What are some potential drawbacks of building a glass city?\n- What are some potential benefits of building a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in a glass city?\n- What are some potential drawbacks of living in a glass city?\n- What are some potential benefits of living in"
+                },
+                "outcome": "success",
+                "prompt_tokens_actual": 6,
+                "request_uuid": "269108ddfb7f3efaf4f8f06ce029cdd27c860dd901ef7db309f11a0c09e476cf",
+                "self_assessment": {
+                  "confidence": 0.95,
+                  "reason": "tinyllama_response"
+                },
+                "telemetry": {
+                  "context_overflow_refusals": 0,
+                  "dependency_evidence_refs": [
+                    "models/server.logs/server.log1.md",
+                    "tmp/slot_full_with_slots.json",
+                    "tmp/slot_full_with_slots_timeseries.json"
+                  ],
+                  "health_snapshot": {
+                    "failure_reason": null,
+                    "is_available": true,
+                    "latency_ms": 39,
+                    "probed_at": 1769315877.8823671,
+                    "status_code": 200
+                  },
+                  "queue_wait_duration_ms": 0,
+                  "slot_contention_events": 0,
+                  "timeout_expirations": 0
+                }
+              }
+            ],
+            "status": "completed"
+          },
+          "tile_sequence": [
+            {
+              "inputs": [
+                "fact.conversation.turn"
+              ],
+              "outputs": [
+                "decision::fact.conversation.turn"
+              ],
+              "tile_id": "tile.lang.semantic_router"
+            },
+            {
+              "inputs": [
+                "fact.conversation.turn"
+              ],
+              "outputs": [
+                "hypothesis::fact.conversation.turn"
+              ],
+              "tile_id": "tile.lang.guided_hallucinator"
+            }
+          ]
+        }
+      },
+      "health_snapshot": {
+        "failure_reason": null,
+        "is_available": true,
+        "latency_ms": 0,
+        "probed_at": 1769315877.7397134,
+        "status_code": 200
+      },
+      "run_id": "auto-0007-run-scenario.hallucinator_imagination-20260125T043812Z",
+      "scenario": {
+        "demo": {
+          "arguments": [
+            "--demo",
+            "imagination",
+            "--prompt",
+            "Imagine a hypothesis about glass cities."
+          ],
+          "entry_point": "main"
+        },
+        "description": "Routes a conversation turn to the guided hallucinator to capture hypotheses and TinyLLaMA health telemetry.",
+        "expected_outputs": {
+          "goal": "conversation.hypothesis",
+          "telemetry": [
+            "hallucinator_snapshot",
+            "tinyllama_health_snapshot"
+          ],
+          "tiles": [
+            "tile.lang.semantic_router",
+            "tile.lang.guided_hallucinator"
+          ]
+        },
+        "id": "scenario.hallucinator_imagination",
+        "name": "TinyLLaMA Imagination"
+      },
+      "scenario_id": "scenario.hallucinator_imagination",
+      "timestamp": "2026-01-25T04:38:12Z"
+    },
+    {
+      "artifact_path": "logs/benchmarks/scenario.pressure_alert-20260125T043812Z.json",
+      "command_result": {
+        "command": "pytest tests/test_resolver_multi_hop.py::test_resolver_emits_alert_panel_view_on_pressure",
+        "return_code": 0,
+        "stderr": "",
+        "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0\nrootdir: /home/j/Desktop/base.26\ncollected 1 item\n\ntests/test_resolver_multi_hop.py .                                       [100%]\n\n=============================== warnings summary ===============================\ntests/test_resolver_multi_hop.py:541\n  /home/j/Desktop/base.26/tests/test_resolver_multi_hop.py:541: PytestUnknownMarkWarning: Unknown pytest.mark.integration - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html\n    @pytest.mark.integration\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n========================= 1 passed, 1 warning in 0.03s =========================",
+        "stdout_json": null
+      },
+      "health_snapshot": {
+        "failure_reason": null,
+        "is_available": true,
+        "latency_ms": 0,
+        "probed_at": 1769315892.672621,
+        "status_code": 200
+      },
+      "run_id": "auto-0007-run-scenario.pressure_alert-20260125T043812Z",
+      "scenario": {
+        "demo": {
+          "arguments": [
+            "tests/test_resolver_multi_hop.py::test_resolver_emits_alert_panel_view_on_pressure"
+          ],
+          "entry_point": "pytest"
+        },
+        "description": "Uses constrained CPU budgets to trigger resolver pressure telemetry and ensure alert panels are emitted.",
+        "expected_outputs": {
+          "goal": "route.dispatch",
+          "telemetry": [
+            "pressure_alert",
+            "pressure_history",
+            "ledger_metadata.pressure_signal"
+          ],
+          "tiles": [
+            "tile.lang.semantic_router",
+            "tile.reasoning.route_dispatch"
+          ]
+        },
+        "id": "scenario.pressure_alert",
+        "name": "Pressure Alert Escalation"
+      },
+      "scenario_id": "scenario.pressure_alert",
+      "timestamp": "2026-01-25T04:38:12Z"
+    }
+  ],
+  "timestamp": "2026-01-25T04:38:12Z"
+}

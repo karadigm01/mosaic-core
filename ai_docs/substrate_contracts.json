@@ -1,0 +1,157 @@
+{
+  "component_id": "substrate_contracts",
+  "component_name": "Constraint Substrate Contract Schemas",
+  "component_type": "schema_bundle",
+  "version": "0.1.0",
+  "creation_timestamp": "2026-01-17T00:00:00Z",
+  "last_modified_timestamp": "2026-01-17T00:00:00Z",
+  "dependencies": [],
+  "interfaces": [],
+  "performance_metrics": {
+    "latency_target_ms": 50,
+    "resource_ceiling_percent": 30
+  },
+  "test_coverage": 0,
+  "compliance_status": "I1_I2_I3_I4_compliant",
+  "schemas": {
+    "constraint_fact": {
+      "description": "Authoritative state or policy fact inside the substrate.",
+      "required_fields": [
+        "fact_id",
+        "fact_type",
+        "payload",
+        "confidence",
+        "ttl_seconds",
+        "created_timestamp",
+        "provenance",
+        "constraints_compliance"
+      ],
+      "field_specs": {
+        "fact_id": "string - globally unique identifier",
+        "fact_type": "string - namespace-qualified category",
+        "payload": "object - structured fact body",
+        "confidence": "number - 0.0 to 1.0",
+        "ttl_seconds": "integer - time-to-live for automatic cleanup",
+        "created_timestamp": "ISO-8601 timestamp",
+        "provenance": "object - emitter_id, signature, evidence",
+        "constraints_compliance": "array - subset of [I1, I2, I3, I4]"
+      }
+    },
+    "reasoning_tile_contract": {
+      "description": "Declarative capabilities and obligations for a reasoning tile.",
+      "required_fields": [
+        "tile_id",
+        "capabilities",
+        "inputs",
+        "outputs",
+        "behavior_guarantees",
+        "resource_budget",
+        "presentation_manifest",
+        "lifecycle_state",
+        "constraints_compliance"
+      ],
+      "field_specs": {
+        "tile_id": "string",
+        "capabilities": "array of strings describing functions (e.g., language.translate)",
+        "inputs": "array describing accepted fact types and shapes",
+        "outputs": "array describing emitted fact types",
+        "behavior_guarantees": "object - determinism proof hash, accuracy bounds, failure modes",
+        "resource_budget": "object - cpu_percent<=30, memory_mb, disk_mb, latency_p95_ms",
+        "presentation_manifest": "object - describes visualization + narrative needs",
+        "lifecycle_state": "enum [proposed, sandboxed, validated, promoted, deprecated]",
+        "constraints_compliance": "array subset of [I1, I2, I3, I4]"
+      }
+    },
+    "macro_tile_contract": {
+      "description": "Resolver-delegated macro tile inheriting reasoning_tile_contract guarantees while documenting capability plans.",
+      "required_fields": [
+        "tile_id",
+        "capabilities",
+        "capability_plan",
+        "delegate_resolver",
+        "synthesis_manifest",
+        "contract",
+        "origin"
+      ],
+      "field_specs": {
+        "tile_id": "string",
+        "capabilities": "array of strings surfaced by the macro tile",
+        "capability_plan": "ordered array of capability identifiers executed by the resolver",
+        "delegate_resolver": "boolean - true indicates the tile calls Resolver internally",
+        "synthesis_manifest": "object - generated_at, generated_by, source_tiles[{tile_id, lifecycle_state, resource_budget}]",
+        "contract": "reasoning_tile_contract payload describing the exposed interface",
+        "origin": "enum [synthesized]"
+      }
+    },
+    "capability_descriptor": {
+      "description": "Hardware or execution environment contract for adaptive placement.",
+      "required_fields": [
+        "capability_id",
+        "resource_class",
+        "hardware_traits",
+        "latency_profile_ms",
+        "privacy_guarantees",
+        "current_utilization_percent"
+      ],
+      "field_specs": {
+        "capability_id": "string",
+        "resource_class": "enum [edge_device, local_cluster, pooled_cloud]",
+        "hardware_traits": "object - cpu_cores, accel_types, memory_mb, storage_mb",
+        "latency_profile_ms": "object - cold_start, steady_state",
+        "privacy_guarantees": "object - data_residency, encryption, attestations",
+        "current_utilization_percent": "object - cpu, memory, io, network"
+      }
+    },
+    "proof_record": {
+      "description": "Append-only trace for every inference proof.",
+      "required_fields": [
+        "proof_id",
+        "goal",
+        "constraint_context",
+        "tile_sequence",
+        "capability_bindings",
+        "resource_usage",
+        "result_summary",
+        "presentation_views",
+        "audit_hash"
+      ],
+      "field_specs": {
+        "proof_id": "string",
+        "goal": "object - requested outcome and success criteria",
+        "constraint_context": "object - invariants enforced, policy versions",
+        "tile_sequence": "array - ordered tile_id references with inputs/outputs",
+        "capability_bindings": "array - tuples of tile_id + capability_id",
+        "resource_usage": "object - actual cpu/memory/io/network percentages",
+        "result_summary": "object - outputs, confidence, replay pointers",
+        "presentation_views": "array - view descriptors generated from manifests",
+        "audit_hash": "string - hash of entire proof record"
+      }
+    },
+    "presentation_manifest": {
+      "description": "Per-tile declaration of user-facing visualization needs.",
+      "required_fields": [
+        "tile_id",
+        "preferred_views",
+        "data_bindings",
+        "narrative_template",
+        "sensitivity_class"
+      ],
+      "field_specs": {
+        "preferred_views": "array - e.g., timeline, causal_graph, text_summary",
+        "data_bindings": "object - mapping from proof fields to view slots",
+        "narrative_template": "string - handlebars-style template for explanations",
+        "sensitivity_class": "enum [public, internal, restricted]"
+      }
+    }
+  },
+  "resource_policies": {
+    "max_per_resource_utilization_percent": 30,
+    "latency_expectation": "near_instant_user_feedback",
+    "edge_preference": true,
+    "governor_rules": [
+      "reject_execution_if_predicted_cpu_percent > 30",
+      "reject_execution_if_predicted_memory_percent > 30",
+      "reject_execution_if_latency_p95_ms > 50"
+    ]
+  }
+}

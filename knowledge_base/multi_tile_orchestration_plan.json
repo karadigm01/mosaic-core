@@ -1,0 +1,121 @@
+{
+  "plan_id": "plan-0001",
+  "name": "Multi-Tile Orchestration Pilot",
+  "created_timestamp": "2026-01-19T00:20:00Z",
+  "author": "GitHub Copilot (GPT-5.1-Codex)",
+  "objectives": [
+    "Demonstrate contract algebra by chaining multiple tiles in a single proof path",
+    "Propagate constraint context, capability bindings, and pressure telemetry across tile hops",
+    "Produce ledger-ready evidence (proofs, alerts, presentation facts) for multi-tile executions"
+  ],
+  "constraints_alignment": {
+    "I1": "Deterministic resolver graph evaluation and tile execution order",
+    "I2": "Explicit work-unit accounting per tile with bounded resource budgets",
+    "I3": "Schema-backed governance artifacts (component index, proofs, alerts)",
+    "I4": "JSON-first documentation + renderer manifests fed by chained outputs"
+  },
+  "reference_components": [
+    "src/runtime/resolver.py",
+    "src/runtime/semantic_router.py",
+    "src/runtime/alert_panel_tile.py",
+    "src/runtime/tile_registry.py",
+    "ai_docs/audit_ledger_schema.json",
+    "ai_docs/presentation_renderer_profiles.json"
+  ],
+  "tile_chain_blueprint": {
+    "stages": [
+      {
+        "label": "Stage 1: Semantic Routing",
+        "tile_id": "tile.lang.semantic_router",
+        "capability": "conversation.route",
+        "inputs": ["Goal.input_fact_ids[*]"] ,
+        "outputs": ["conversation.route_decision"],
+        "work_metrics": ["input_tokens", "route_checks", "operation_units"],
+        "pressure_signal": "operation_units vs cpu_percent budget"
+      },
+      {
+        "label": "Stage 2: Route Dispatch",
+        "tile_id": "tile.reasoning.route_dispatch",
+        "capability": "route.dispatch",
+        "inputs": ["conversation.route_decision"],
+        "outputs": ["pressure_alerts"],
+        "work_metrics": ["route_fanout", "dispatch_latency", "operation_units"],
+        "pressure_signal": "route_fanout vs dispatch.ceiling"
+      },
+      {
+        "label": "Stage 3: Capability-Scoped Presentation",
+        "tile_id": "tile.presentation.alert_panel" ,
+        "capability": "presentation.alert_panel",
+        "inputs": ["pressure_alerts"],
+        "outputs": ["presentation.alert_panel"],
+        "work_metrics": ["alert_count", "render_spans"],
+        "pressure_signal": "alert_count vs renderer.max_alerts"
+      }
+    ],
+    "future_extension": "Enable resolver to infer capability chains from tile contracts (no manual capability_plan) and inject additional tiles (e.g., grounding, summarization) via declarative execution plans"
+  },
+  "delivery_phases": [
+    {
+      "name": "Phase A: Resolver Graph Semantics",
+      "tasks": [
+        "Extend Goal to optionally declare ordered capability chains (capability_plan: List[str])",
+        "Add resolver graph planner that maps capability_plan entries to TileContracts via registry",
+        "Persist full TileInvocation sequences in ProofRecord.tile_sequence with hop metadata",
+        "Document follow-on work to auto-infer capability chains from goal desired_output + tile dependencies"
+      ],
+      "success_metrics": ["Proofs contain >1 TileInvocation", "capability_bindings length equals chain length", "Capability inference backlog captured"]
+    },
+    {
+      "name": "Phase B: Tile Execution Pipeline",
+      "tasks": [
+        "Allow resolver to feed outputs from stage N as facts into stage N+1 (preserve constraints_compliance)",
+        "Normalize multi-output facts (list) for downstream tiles, including AlertPanelTile alerts input",
+        "Emit deterministic work metrics per tile and attach to resource_usage as hop-specific entries",
+        "Define proof + substrate semantics for partial-failure chains (successful hops recorded, downstream hops marked rejected)"
+      ],
+      "success_metrics": ["Downstream tile receives upstream fact payload", "work_metrics captured per tile", "Failure proofs retain upstream invocations"]
+    },
+    {
+      "name": "Phase C: Multi-Hop Pressure + Ledger",
+      "tasks": [
+        "Evaluate pressure per tile, record per-hop usage entries, and compute aggregate metrics (max_ratio, total_operation_units)",
+        "Propagate most severe signal into proof.resource_usage.pressure_state while preserving hop provenance",
+        "Update ledger_metadata.pressure_signal to capture multi-hop context (tile_id + hop index)",
+        "Generate presentation views for each hop (route_decision, dispatch, alert_panel, etc.)"
+      ],
+      "success_metrics": ["pressure_alert ledger entries reference hop tile_id", "presentation_views count >= number of stages", "resource_usage contains per-hop + aggregate stats"]
+    },
+    {
+      "name": "Phase D: Test + Governance Automation",
+      "tasks": [
+        "Author integration tests covering success + failure chains (missing fact mid-chain, capability mismatch)",
+        "Use component_registry_sync to refresh component index entries for touched tiles",
+        "Update knowledge base techniques/automation entries with lessons learned"
+      ],
+      "success_metrics": ["Integration tests passing", "component_index metadata totals unchanged"]
+    }
+  ],
+  "validation_matrix": {
+    "unit_tests": ["tests/test_resolver.py (multi-hop cases)", "tests/test_alert_panel_tile.py (multi-hop inputs)"] ,
+    "schema_checks": ["tests/test_schema_contracts.py"],
+    "manual_inspection": ["ProofRecord JSON ensuring tile_sequence aligns with capability plan"],
+    "telemetry": ["operation_units per hop", "pressure_ratio max"]
+  },
+  "risks": [
+    {
+      "id": "risk-graph-drift",
+      "description": "Resolver graph planner may allow cycles or unordered execution",
+      "mitigation": "Enforce acyclic capability_plan validation + max hop count"
+    },
+    {
+      "id": "risk-pressure-noise",
+      "description": "Aggregating pressure across hops could hide local overloads",
+      "mitigation": "Record per-hop pressure signals and compute max + cumulative ratios"
+    }
+  ],
+  "next_actions": [
+    "Schedule Phase A implementation in src/runtime/resolver.py",
+    "Design integration tests for multi-hop success/failure scenarios",
+    "Implement and document tile.reasoning.route_dispatch, then coordinate with governance automation to auto-register the new tile"
+  ]
+}
