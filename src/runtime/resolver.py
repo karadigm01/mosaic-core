@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import hashlib
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Dict, List, Optional, Tuple
 
 from runtime.constraint_substrate import (
@@ -118,6 +118,7 @@ class Resolver:
         hop_metrics: List[Dict[str, object]] = []
         signals: List[PressureSignal] = []
         alerts: List[Dict[str, object]] = []
+        hallucinator_snapshot: Optional[Dict[str, object]] = None
         last_fact = input_facts[-1]
 
         for capability in capability_plan:
@@ -161,15 +162,24 @@ class Resolver:
                 presentation_views.append(self._build_alert_panel_view(goal, signal))
 
             last_fact = result.fact
-                        "summary": result.fact.payload.get("hypothesis", {}).get("summary", ""),
 
             if contract.tile_id == GuidedHallucinatorTile.TILE_ID:
+                payload = result.fact.payload
+                hypothesis_summary = payload.get("hypothesis", {}).get("summary", "")
                 presentation_views.append(
                     {
                         "type": "hallucinator_hypothesis",
                         "fact_id": result.fact.fact_id,
+                        "summary": hypothesis_summary,
                     }
                 )
+                hallucinator_snapshot = {
+                    "fact_id": result.fact.fact_id,
+                    "summary": hypothesis_summary,
+                    "outcome": payload.get("outcome"),
+                    "self_assessment": payload.get("self_assessment", {}),
+                    "telemetry": payload.get("telemetry", {}),
+                }
 
         pressure_state = self._summarize_pressure(signals, hop_metrics)
         resource_usage: Dict[str, object] = {
@@ -178,9 +188,15 @@ class Resolver:
         }
 
         ledger_metadata: Dict[str, object] = {}
-        if pressure_state.get("signal_id"):
-            ledger_metadata["pressure_signal"] = pressure_state
+        if signals:
+            peak_signal = signals[0]
+            for signal in signals[1:]:
+                if signal.pressure_ratio >= peak_signal.pressure_ratio:
+                    peak_signal = signal
+            ledger_metadata["pressure_signal"] = asdict(peak_signal)
             ledger_metadata["pressure_state"] = pressure_state
+        if hallucinator_snapshot is not None:
+            ledger_metadata["hallucinator_snapshot"] = hallucinator_snapshot
 
         result_summary = self._build_result_summary(last_fact, tile_sequence)
         proof = ProofRecord(

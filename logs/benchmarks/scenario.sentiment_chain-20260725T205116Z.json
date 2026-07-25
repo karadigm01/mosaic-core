@@ -1,0 +1,225 @@
+{
+  "command_result": {
+    "command": "/home/j/Desktop/GITHUB.RELEASE/systems/uploaded.to.github/base.26/.venv/bin/python -m main --demo sentiment",
+    "return_code": 0,
+    "stderr": "",
+    "stdout": "{\n  \"capability_bindings\": [\n    {\n      \"capability_id\": \"conversation.route\",\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"capability_id\": \"route.dispatch\",\n      \"tile_id\": \"tile.reasoning.route_dispatch\"\n    },\n    {\n      \"capability_id\": \"pressure.summary\",\n      \"tile_id\": \"tile.reasoning.pressure_summary\"\n    }\n  ],\n  \"chain_quality\": {\n    \"metrics\": {\n      \"alert_count\": 0.0,\n      \"hop_count\": 3.0,\n      \"pressure_ratio\": 0.6,\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"status\": \"completed\",\n      \"ttl_seconds\": 600\n    },\n    \"penalties\": {\n      \"hop_penalty\": 0.15\n    },\n    \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n    \"score\": 0.85,\n    \"tier\": \"high\"\n  },\n  \"presentation_views\": [\n    {\n      \"audit_hash\": \"hash://sha256/640ffb2521e48741378a0660041d40ac1021a0cf1768d4083cfe741d6e10b633\",\n      \"fact_id\": \"pressure.summary::pressure.alert_batch::decision::fact.user_text\",\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"type\": \"route_decision\"\n    },\n    {\n      \"audit_hash\": \"hash://sha256/640ffb2521e48741378a0660041d40ac1021a0cf1768d4083cfe741d6e10b633\",\n      \"fact_id\": \"meta.chain_quality::proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"type\": \"chain_quality\"\n    },\n    {\n      \"fact_id\": \"meta.pressure_history::proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"type\": \"pressure_history\"\n    }\n  ],\n  \"pressure_state\": {\n    \"contract_budget\": null,\n    \"metric\": null,\n    \"observed_value\": null,\n    \"ratio\": 0.6,\n    \"signal_id\": null,\n    \"status\": \"within_budget\",\n    \"tile_id\": null\n  },\n  \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n  \"resource_usage\": {\n    \"chain_quality\": {\n      \"metrics\": {\n        \"alert_count\": 0.0,\n        \"hop_count\": 3.0,\n        \"pressure_ratio\": 0.6,\n        \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n        \"status\": \"completed\",\n        \"ttl_seconds\": 600\n      },\n      \"penalties\": {\n        \"hop_penalty\": 0.15\n      },\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"score\": 0.85,\n      \"tier\": \"high\"\n    },\n    \"hop_metrics\": [\n      {\n        \"budget\": {\n          \"cpu_percent\": 20\n        },\n        \"capability_id\": \"conversation.route\",\n        \"ratio\": 0.6,\n        \"tile_id\": \"tile.lang.semantic_router\",\n        \"work_metrics\": {\n          \"input_tokens\": 5.0,\n          \"operation_units\": 12.0,\n          \"route_checks\": 7.0\n        }\n      },\n      {\n        \"budget\": {\n          \"cpu_percent\": 25\n        },\n        \"capability_id\": \"route.dispatch\",\n        \"ratio\": 0.08,\n        \"tile_id\": \"tile.reasoning.route_dispatch\",\n        \"work_metrics\": {\n          \"dispatch_latency_ms\": 5.0,\n          \"operation_units\": 2.0,\n          \"route_fanout\": 1.0\n        }\n      },\n      {\n        \"budget\": {\n          \"cpu_percent\": 15\n        },\n        \"capability_id\": \"pressure.summary\",\n        \"ratio\": 0.0,\n        \"tile_id\": \"tile.reasoning.pressure_summary\",\n        \"work_metrics\": {\n          \"alert_count\": 1.0,\n          \"severe_count\": 0.0\n        }\n      }\n    ],\n    \"pressure_history\": {\n      \"max_ratio\": 0.0,\n      \"mean_ratio\": 0.0,\n      \"proof_id\": \"proof::demo.sentiment::tile.reasoning.pressure_summary\",\n      \"severity_counts\": {\n        \"info\": 0,\n        \"severe\": 0,\n        \"warning\": 0\n      },\n      \"signal_count\": 0,\n      \"tile_occurrences\": {},\n      \"trend\": \"stable\"\n    },\n    \"pressure_state\": {\n      \"contract_budget\": null,\n      \"metric\": null,\n      \"observed_value\": null,\n      \"ratio\": 0.6,\n      \"signal_id\": null,\n      \"status\": \"within_budget\",\n      \"tile_id\": null\n    }\n  },\n  \"result_summary\": {\n    \"outputs\": [\n      {\n        \"alert_count\": 1,\n        \"severe\": 0,\n        \"warnings\": 0\n      }\n    ],\n    \"status\": \"completed\"\n  },\n  \"tile_sequence\": [\n    {\n      \"inputs\": [\n        \"fact.user_text\"\n      ],\n      \"outputs\": [\n        \"decision::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.lang.semantic_router\"\n    },\n    {\n      \"inputs\": [\n        \"decision::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"pressure.alert_batch::decision::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.reasoning.route_dispatch\"\n    },\n    {\n      \"inputs\": [\n        \"pressure.alert_batch::decision::fact.user_text\"\n      ],\n      \"outputs\": [\n        \"pressure.summary::pressure.alert_batch::decision::fact.user_text\"\n      ],\n      \"tile_id\": \"tile.reasoning.pressure_summary\"\n    }\n  ]\n}",
+    "stdout_json": {
+      "capability_bindings": [
+        {
+          "capability_id": "conversation.route",
+          "tile_id": "tile.lang.semantic_router"
+        },
+        {
+          "capability_id": "route.dispatch",
+          "tile_id": "tile.reasoning.route_dispatch"
+        },
+        {
+          "capability_id": "pressure.summary",
+          "tile_id": "tile.reasoning.pressure_summary"
+        }
+      ],
+      "chain_quality": {
+        "metrics": {
+          "alert_count": 0.0,
+          "hop_count": 3.0,
+          "pressure_ratio": 0.6,
+          "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "status": "completed",
+          "ttl_seconds": 600
+        },
+        "penalties": {
+          "hop_penalty": 0.15
+        },
+        "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+        "score": 0.85,
+        "tier": "high"
+      },
+      "presentation_views": [
+        {
+          "audit_hash": "hash://sha256/640ffb2521e48741378a0660041d40ac1021a0cf1768d4083cfe741d6e10b633",
+          "fact_id": "pressure.summary::pressure.alert_batch::decision::fact.user_text",
+          "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "type": "route_decision"
+        },
+        {
+          "audit_hash": "hash://sha256/640ffb2521e48741378a0660041d40ac1021a0cf1768d4083cfe741d6e10b633",
+          "fact_id": "meta.chain_quality::proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "type": "chain_quality"
+        },
+        {
+          "fact_id": "meta.pressure_history::proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "type": "pressure_history"
+        }
+      ],
+      "pressure_state": {
+        "contract_budget": null,
+        "metric": null,
+        "observed_value": null,
+        "ratio": 0.6,
+        "signal_id": null,
+        "status": "within_budget",
+        "tile_id": null
+      },
+      "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+      "resource_usage": {
+        "chain_quality": {
+          "metrics": {
+            "alert_count": 0.0,
+            "hop_count": 3.0,
+            "pressure_ratio": 0.6,
+            "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+            "status": "completed",
+            "ttl_seconds": 600
+          },
+          "penalties": {
+            "hop_penalty": 0.15
+          },
+          "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "score": 0.85,
+          "tier": "high"
+        },
+        "hop_metrics": [
+          {
+            "budget": {
+              "cpu_percent": 20
+            },
+            "capability_id": "conversation.route",
+            "ratio": 0.6,
+            "tile_id": "tile.lang.semantic_router",
+            "work_metrics": {
+              "input_tokens": 5.0,
+              "operation_units": 12.0,
+              "route_checks": 7.0
+            }
+          },
+          {
+            "budget": {
+              "cpu_percent": 25
+            },
+            "capability_id": "route.dispatch",
+            "ratio": 0.08,
+            "tile_id": "tile.reasoning.route_dispatch",
+            "work_metrics": {
+              "dispatch_latency_ms": 5.0,
+              "operation_units": 2.0,
+              "route_fanout": 1.0
+            }
+          },
+          {
+            "budget": {
+              "cpu_percent": 15
+            },
+            "capability_id": "pressure.summary",
+            "ratio": 0.0,
+            "tile_id": "tile.reasoning.pressure_summary",
+            "work_metrics": {
+              "alert_count": 1.0,
+              "severe_count": 0.0
+            }
+          }
+        ],
+        "pressure_history": {
+          "max_ratio": 0.0,
+          "mean_ratio": 0.0,
+          "proof_id": "proof::demo.sentiment::tile.reasoning.pressure_summary",
+          "severity_counts": {
+            "info": 0,
+            "severe": 0,
+            "warning": 0
+          },
+          "signal_count": 0,
+          "tile_occurrences": {},
+          "trend": "stable"
+        },
+        "pressure_state": {
+          "contract_budget": null,
+          "metric": null,
+          "observed_value": null,
+          "ratio": 0.6,
+          "signal_id": null,
+          "status": "within_budget",
+          "tile_id": null
+        }
+      },
+      "result_summary": {
+        "outputs": [
+          {
+            "alert_count": 1,
+            "severe": 0,
+            "warnings": 0
+          }
+        ],
+        "status": "completed"
+      },
+      "tile_sequence": [
+        {
+          "inputs": [
+            "fact.user_text"
+          ],
+          "outputs": [
+            "decision::fact.user_text"
+          ],
+          "tile_id": "tile.lang.semantic_router"
+        },
+        {
+          "inputs": [
+            "decision::fact.user_text"
+          ],
+          "outputs": [
+            "pressure.alert_batch::decision::fact.user_text"
+          ],
+          "tile_id": "tile.reasoning.route_dispatch"
+        },
+        {
+          "inputs": [
+            "pressure.alert_batch::decision::fact.user_text"
+          ],
+          "outputs": [
+            "pressure.summary::pressure.alert_batch::decision::fact.user_text"
+          ],
+          "tile_id": "tile.reasoning.pressure_summary"
+        }
+      ]
+    }
+  },
+  "health_snapshot": {
+    "failure_reason": null,
+    "is_available": true,
+    "latency_ms": 0,
+    "probed_at": 1785012676.5328088,
+    "status_code": 200
+  },
+  "scenario": {
+    "demo": {
+      "arguments": [
+        "--demo",
+        "sentiment"
+      ],
+      "entry_point": "main",
+      "inputs": {
+        "user_text": "I hate waiting for support"
+      }
+    },
+    "description": "Runs user text through Sentiment -> Semantic Router -> Route Dispatch to verify cognition coverage.",
+    "expected_outputs": {
+      "goal": "pressure.summary",
+      "tiles": [
+        "tile.lang.sentiment",
+        "tile.lang.semantic_router",
+        "tile.reasoning.route_dispatch",
+        "tile.presentation.pressure_summary"
+      ]
+    },
+    "id": "scenario.sentiment_chain",
+    "name": "Sentiment Support Chain",
+    "telemetry_requirements": [
+      "proof.result_summary",
+      "proof.resource_usage.pressure_state",
+      "presentation_views"
+    ]
+  },
+  "scenario_id": "scenario.sentiment_chain",
+  "timestamp": "2026-07-25T20:51:16Z"
+}

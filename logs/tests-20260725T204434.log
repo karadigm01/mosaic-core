@@ -1,0 +1,31 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0
+rootdir: /home/j/Desktop/GITHUB.RELEASE/systems/uploaded.to.github/base.26
+collected 106 items
+
+tests/test_alert_panel_tile.py .                                         [  0%]
+tests/test_benchmark_dashboard_service.py .........                      [  9%]
+tests/test_benchmarking_runner.py .......                                [ 16%]
+tests/test_component_coverage_sync.py ..                                 [ 17%]
+tests/test_component_registry_sync.py ...                                [ 20%]
+tests/test_constraint_substrate.py ........                              [ 28%]
+tests/test_guided_hallucinator_tile.py ............                      [ 39%]
+tests/test_ledger_writer.py .                                            [ 40%]
+tests/test_macro_tile_generator.py ..                                    [ 42%]
+tests/test_pressure_historian_tile.py ...                                [ 45%]
+tests/test_pressure_summary_tile.py ......                               [ 50%]
+tests/test_proof_evaluator_tile.py ...                                   [ 53%]
+tests/test_resolver_multi_hop.py ...............s                        [ 68%]
+tests/test_route_dispatch_tile.py ...                                    [ 71%]
+tests/test_schema_contracts.py .................                         [ 87%]
+tests/test_semantic_router.py ...                                        [ 90%]
+tests/test_sentiment_tile.py ......                                      [ 96%]
+tests/test_tile_registry.py ....                                         [100%]
+
+=============================== warnings summary ===============================
+../../../../base.26/tests/test_resolver_multi_hop.py:541
+  /home/j/Desktop/base.26/tests/test_resolver_multi_hop.py:541: PytestUnknownMarkWarning: Unknown pytest.mark.integration - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 105 passed, 1 skipped, 1 warning in 6.01s ===================
+

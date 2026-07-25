@@ -22,12 +22,12 @@
 <!-- dashboard-summary:begin -->
 ### Dashboard Highlights
 
-- Playlist `playlist.phase3_regression` run `auto-0007-run-playlist.playlist.phase3_regression-20260125T062749Z` captured 3 scenarios with 0 failures and latency span 41 ms.
+- Playlist `playlist.phase3_regression` run `auto-0007-run-playlist.playlist.phase3_regression-20260725T205117Z` captured 3 scenarios with 0 failures and latency span 30 ms.
 - Coverage snapshot lists 0 failing scenarios and 2 pytest targets.
-- Diff baseline `none` with aggregate delta {}; archival artifact `logs/benchmarks/playlist.playlist.phase3_regression-20260125T062749Z.json`.
-- Scenario coverage distribution -> full: scenario.pressure_alert, scenario.sentiment_chain; missing: scenario.hallucinator_imagination
-- No scenario regressions detected against the previous baseline.
-- Previous snapshot reference `logs/benchmarks/history/dashboard.playlist.phase3_regression-auto-0007-run-playlist.playlist.phase3_regression-20260125T062749Z.json`
+- Diff baseline `logs/benchmarks/playlist.playlist.phase3_regression-20260125T062749Z.json` with aggregate delta {'failures': 0, 'tinyllama_latency_max_ms': -11, 'tinyllama_latency_min_ms': 0, 'total_duration_seconds': 0}; archival artifact `logs/benchmarks/playlist.playlist.phase3_regression-20260725T205117Z.json`.
+- Scenario coverage distribution -> full: scenario.hallucinator_imagination, scenario.pressure_alert, scenario.sentiment_chain
+- Regressions detected: scenario.hallucinator_imagination (latency_delta_ms=-11)
+- Previous snapshot reference `logs/benchmarks/history/dashboard.playlist.test-auto-0007-run-playlist.playlist.test-20260725T205346Z.json`
 - Replay cadence => 0 runs (last `n/a`); remediation backlog 0.
 <!-- dashboard-summary:end -->
 
