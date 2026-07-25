@@ -21,7 +21,7 @@ Test counts above come from a test run performed during this README revision. Co
 
 The system explores one central question:
 
-> Can useful AI behavior be assembled from small, independently contracted, deterministic modules — so that every result carries a complete, replayable proof of how it was produced and what resources it consumed?
+> Can useful AI behavior be assembled from small, independently contracted modules so that every result carries an inspectable execution record showing how it was produced and what resources it consumed?
 
 Conventional pipelines make it hard to answer "which component produced this, under what budget, and would the same input give the same output?" Mosaic Core makes those properties structural: tiles declare input/output types and resource budgets up front, the resolver plans and executes chains against those contracts, and every resolution produces an auditable proof record rather than a bare answer.
 
@@ -63,7 +63,7 @@ Governance rules live in `core_reference.json` (invariants I1–I4, quality cont
 
 | Claim | Evidence | Reproduce or inspect |
 | ----- | -------- | -------------------- |
-| The tile/resolver core resolves multi-hop chains and emits complete proofs | Test suite: 105 passed, 1 skipped during this revision | `python -m pytest tests/` |
+| The tile/resolver core resolves multi-hop chains and emits structured proof records containing the currently governed execution fields | Test suite: 105 passed, 1 skipped during this revision | `python -m pytest tests/` |
 | The sentiment demo chain runs deterministically without any model or network | Reproduced during this revision | `PYTHONPATH=src python -m src.main --demo sentiment` |
 | The guided-hallucinator path works end to end against a local TinyLLaMA server, and degrades to a structured rejection without one | Reproduced during this revision (both with and without the server) | `PYTHONPATH=src python -m src.main --demo imagination --prompt "a city made of glass"` |
 | Benchmark playlists execute 3/3 scenarios with zero failures | Checked-in evidence bundles dated 2026-01-25 | `logs/benchmarks/playlist.playlist.phase3_regression-20260125T062749Z.json` |
@@ -84,7 +84,7 @@ The repository includes benchmark latency evidence (playlist latency span 41 ms 
 
 ## Quick Start
 
-Requires Python 3.10+ (CI uses 3.12). The runtime itself has no third-party dependencies; only pytest is needed for tests.
+Requires Python 3.12 (the version used by CI and the only version verified; older versions are untested). The runtime itself has no third-party dependencies; only pytest is needed for tests.
 
 ```bash
 python -m venv .venv
